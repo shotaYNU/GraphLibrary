@@ -1,0 +1,8 @@
+# Ignore object file.
+*.o
+
+# Ignore main file.
+*main*
+
+# Ignore make file.
+/makefile
