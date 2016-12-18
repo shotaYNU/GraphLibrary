@@ -30,7 +30,7 @@ public:
     EmbeddedFace* getRightFace() const { return rightFace; }
 
     void mark() { marked = true; }
-    void unmark() { marked = false; }
+    void unmark() { marked = false; opposite->marked = false; }
     bool getMark() const { return marked; }
     void setIndex(int _index) { index = _index; opposite->index = -1; }
     int getIndex() { return index; }
