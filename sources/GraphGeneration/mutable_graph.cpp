@@ -169,10 +169,12 @@ int MutableGraph::makeColors(EmbeddedEdge* _ed)
 
     c0 = (1 << ((++deg[v1]) & 7)) + (1 << ((++deg[v2]) & 7)) + (1 << ((++deg[v3]) & 7));
 
+    colors[verticesNum] = 2;
     nc = 1;
 
     for (int i = verticesNum; --i >= 0;) {
-        if (deg[i] == 3) {
+        if (deg[i] != 3) colors[i] = deg[i];
+        else {
             ed = vertices[i]->getFirstEdge();
             c = (1 << ((deg[ed->getEnd()]) & 7)) + (1 << ((deg[ed->getNext()->getEnd()]) & 7)) + (1 << ((deg[ed->getNext()->getNext()->getEnd()]) & 7));
 
@@ -181,8 +183,10 @@ int MutableGraph::makeColors(EmbeddedEdge* _ed)
                 --deg[v2];
                 --deg[v3];
                 return 0;
-            } else if (c == c0)
+            } else if (c == c0) {
+                colors[i] = 2;
                 ++nc;
+            } else colors[i] = 3;
         }
     }
 
@@ -191,4 +195,10 @@ int MutableGraph::makeColors(EmbeddedEdge* _ed)
     --deg[v3];
 
     return nc;
+}
+
+void MutableGraph::setColors()
+{
+    for (int i = 0; i < verticesNum; ++i)
+        colors[i] = vertices[i]->getDegree();
 }

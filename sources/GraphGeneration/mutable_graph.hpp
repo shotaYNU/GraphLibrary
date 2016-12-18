@@ -18,12 +18,15 @@ public:
     tuple<int, int> getContractibleMinDegree();
     void unMarkAllEdge();
     int makeColors(EmbeddedEdge* _ed);
+    void setColors();
+    int* getColors() { return colors; }
 
 protected:
 
 private:
     EmbeddedEdge* edges[2 * EDGE_MAX_SIZE];
     EmbeddedEdge** addEdgeAddress;
+    int colors[GraphProperty::MAX_VERTEX];
 
     EmbeddedEdge** makeVertexDeg3();
     EmbeddedEdge** makeVertexDeg4();

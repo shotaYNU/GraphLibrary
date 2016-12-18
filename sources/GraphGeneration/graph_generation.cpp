@@ -60,6 +60,7 @@ void GraphGeneration::doSplittingLoop()
             }
         } else {
             graph->splitDegn(splitEdge, deg, saveList);
+            graph->setColors();
             if (graphRepresentation.setBestRepresentationIfLastBest()) {
                 if (deg == 4) {
                     ed1 = splitEdge->getNext()->getInverse();

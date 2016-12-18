@@ -2,6 +2,7 @@
 #define GraphGenerateRepresentation_hpp
 
 #include "../GraphOperation/graph_representation.hpp"
+#include "../GraphGeneration/mutable_graph.hpp"
 
 class GraphGenerateRepresentation: public GraphRepresentation {
 public:
@@ -21,6 +22,7 @@ private:
     bool graphIrreducible;
     EmbeddedEdge* lastList[GraphProperty::MAX_EDGE];
     EmbeddedEdge* otherList[GraphProperty::MAX_EDGE];
+    int colors[GraphProperty::MAX_VERTEX];
 
     void setCandidateLast();
     bool setCandidateOther();

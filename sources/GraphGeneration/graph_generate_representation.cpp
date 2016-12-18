@@ -20,12 +20,12 @@ void GraphGenerateRepresentation::setCandidateLast()
     int cl;
     EmbeddedEdge *end, *ed;
     end = ed = graph->getVertex(graph->getVerticesNum() - 1)->getFirstEdge();
-    minstart = graph->getVertex(ed->getStart())->getDegree();
-    maxend = (graphIrreducible || graph->getVertex(ed->getStart())->getCommonCount(graph->getVertex(ed->getEnd())) == 2) ? graph->getVertex(ed->getEnd())->getDegree() : 0;
+    minstart = colors[ed->getStart()];
+    maxend = (graphIrreducible || graph->getVertex(ed->getStart())->getCommonCount(graph->getVertex(ed->getEnd())) == 2) ? colors[ed->getEnd()] : 0;
 
     do {
         if (graphIrreducible || graph->getVertex(ed->getStart())->getCommonCount(graph->getVertex(ed->getEnd())) == 2) {
-            if ((cl = graph->getVertex(ed->getEnd())->getDegree()) == maxend)
+            if ((cl = colors[ed->getEnd()]) == maxend)
                 lastList[lastCount++] = ed;
             else if (cl > maxend) {
                 lastCount = 0;
@@ -46,9 +46,9 @@ bool GraphGenerateRepresentation::setCandidateOther()
         ed = end = graph->getVertex(i)->getFirstEdge();
         do {
             if (graphIrreducible || EmbeddedVertex::getCommonCount(graph->getVertex(ed->getStart()), graph->getVertex(ed->getEnd())) == 2) {
-                if ((cl = graph->getVertex(ed->getStart())->getDegree()) < minstart) return false;
+                if ((cl = colors[ed->getStart()]) < minstart) return false;
                 if (cl == minstart) {
-                    if ((cl = graph->getVertex(ed->getEnd())->getDegree()) > maxend) return false;
+                    if ((cl = colors[ed->getEnd()]) > maxend) return false;
                     if (cl == maxend) otherList[otherCount++] = ed;
                 }
             }
@@ -64,6 +64,8 @@ bool GraphGenerateRepresentation::setBestRepresentationIfLastBest()
     lastCount = otherCount = 0;
     repsCount = 0;
     graphIrreducible = graph->getIrreducible();
+    for (int i = 0; i < GraphProperty::MAX_VERTEX; ++i)
+        colors[i] = ((MutableGraph*)graph)->getColors()[i];
     setCandidateLast();
     if (!setCandidateOther())
         return false;
