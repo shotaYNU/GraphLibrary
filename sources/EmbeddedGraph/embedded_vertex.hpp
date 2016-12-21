@@ -16,6 +16,7 @@ public:
     int getId() const { return id; }
     void setAdjacent(int _vertex) { adjacent[_vertex] = true; }
     void resetAdjacent(int _vertex) { adjacent[_vertex] = false; }
+    bool getAdjacent(int _vertex) const { return adjacent[_vertex]; }
     void setDegree(int _deg) { degree = _deg; }
     int getDegree() const { return degree; }
     void setFirstEdge(EmbeddedEdge* _ed) { firstEdge = _ed; }
