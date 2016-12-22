@@ -8,7 +8,8 @@ EmbeddedEdge::EmbeddedEdge()
     prev = nullptr;
     inverse = nullptr;
     opposite = nullptr;
-    rightFace = nullptr;
+    nextFace = nullptr;
+    prevFace = nullptr;
     isContractible = false;
     marked = false;
     index = 0;
@@ -22,7 +23,8 @@ EmbeddedEdge::EmbeddedEdge(int _start, int _end)
     prev = nullptr;
     inverse = nullptr;
     opposite = nullptr;
-    rightFace = nullptr;
+    nextFace = nullptr;
+    prevFace = nullptr;
     isContractible = false;
     marked = false;
     index = 0;
