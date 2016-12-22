@@ -277,19 +277,20 @@ void EmbeddedGraph::initContractible()
 void EmbeddedGraph::initFace()
 {
     EmbeddedEdge *ed1, *ed2, *end;
-    int count;
 
     for (int i = 0; i < verticesNum; ++i) {
         ed1 = end = vertices[i]->getFirstEdge();
         do {
-            ed2 = ed1;
-            count = 0;
-            do {
-                count++;
-                ed2 = ed2->getInverse()->getPrev();
-            } while (ed2 != ed1);
-
-            ed1->getRightFace()->setFaceVerticesNum(count);
+            if (ed1->getNextFace() == nullptr) {
+                EmbeddedFace* face = new EmbeddedFace();
+                ed2 = ed1;
+                do {
+                    face->setFaceVertex(ed2->getEnd());
+                    ed2->setNextFace(face);
+                    ed2->getInverse()->setPrevFace(face);
+                    ed2 = ed2->getInverse()->getPrev();
+                } while (ed2 != ed1);
+            }
             ed1 = ed1->getNext();
         } while (ed1 != end);
     }

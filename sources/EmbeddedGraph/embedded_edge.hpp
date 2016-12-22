@@ -26,8 +26,10 @@ public:
     bool getIsContractible() const { return isContractible; }
     void setOpposite(EmbeddedEdge* _edge) { opposite = _edge; }
     EmbeddedEdge* getOpposite() const { return opposite; }
-    void setRightFace(EmbeddedFace* _face) { rightFace = _face; }
-    EmbeddedFace* getRightFace() const { return rightFace; }
+    void setNextFace(EmbeddedFace* _face) { nextFace = _face; opposite->prevFace = _face; }
+    EmbeddedFace* getNextFace() const { return nextFace; }
+    void setPrevFace(EmbeddedFace* _face) { prevFace = _face; opposite->nextFace = _face; }
+    EmbeddedFace* getPrevFace() const { return prevFace; }
 
     void mark() { marked = true; }
     void unmark() { marked = false; opposite->marked = false; }
@@ -42,7 +44,8 @@ protected:
     EmbeddedEdge *prev;
     EmbeddedEdge *inverse;
     EmbeddedEdge *opposite;
-    EmbeddedFace *rightFace;
+    EmbeddedFace* nextFace;
+    EmbeddedFace* prevFace;
     bool isContractible;
     bool marked;
     int index;

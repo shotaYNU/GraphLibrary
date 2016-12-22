@@ -29,11 +29,6 @@ EmbeddedVertex::~EmbeddedVertex()
         ed = next;
         next = ed->getNext();
         if (ed != nullptr) {
-            if (ed->getRightFace() != nullptr) {
-                delete ed->getRightFace();
-                ed->setRightFace(nullptr);
-            }
-
             if (ed->getOpposite() != nullptr) {
                 delete ed->getOpposite();
                 ed->setOpposite(nullptr);
