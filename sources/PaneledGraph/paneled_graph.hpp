@@ -3,6 +3,7 @@
 
 #include "../EmbeddedGraph/embedded_graph.hpp"
 #include "paneled_face.hpp"
+#include "embedding_set.hpp"
 
 class PaneledGraph : public EmbeddedGraph {
 public:
@@ -13,10 +14,13 @@ public:
     //Operation of panel.
     bool isPIT();
 
+
 protected:
+    EmbeddingSet embeddingSet;
 
 private:
     bool isFlat(int _id);
+    void setPanelsWithAllEmbeddings();
 
 };
 
