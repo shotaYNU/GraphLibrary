@@ -57,10 +57,13 @@ void PaneledRepresentation::setRepresentation(EmbeddedEdge* _ed, bool _clockwise
     bfs.init(_ed, _clockwise);
     while (bfs.hasNext()) {
         nowEdge = bfs.next();
+        if (((PaneledFace*)nowEdge->getNextFace())->getPanel() && ((PaneledFace*)nowEdge->getPrevFace())->getPanel()) continue;
         if (nowId != nowEdge->getStart()) {
             representation[repCount] = 0;
             representationPanel[repCount++] = 0;
             nowId = nowEdge->getStart();
+            if (indexMapping[nowId] == -1)
+                indexMapping[nowId] = indexCount++;
         }
         vertex = nowEdge->getEnd();
         if (indexMapping[vertex] == -1)
