@@ -19,7 +19,7 @@ Representation::Representation(const Representation& _obj)
 
 Representation::~Representation()
 {
-    
+
 }
 
 Representation::Results Representation::compareRepresentation(const Representation& _rep) const
@@ -67,6 +67,8 @@ void Representation::setRepresentation(EmbeddedEdge* _ed, bool _clockwise)
         if (nowId != nowEdge->getStart()) {
             representation[repCount++] = 0;
             nowId = nowEdge->getStart();
+            if (indexMapping[nowId] == -1)
+                indexMapping[nowId] = indexCount++;
         }
         vertex = nowEdge->getEnd();
         if (indexMapping[vertex] == -1)
