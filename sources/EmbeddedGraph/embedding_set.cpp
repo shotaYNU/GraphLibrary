@@ -80,6 +80,57 @@ void EmbeddingSet::setAllEmbeddings(EmbeddedGraph* _graph)
         if (adjacentOrigin == adjacentMutate)
             embeddings.push_back(mapping);
     }
+
+    setAllInequivalentEmbeddings(_graph);
+}
+
+void EmbeddingSet::setAllInequivalentEmbeddings(EmbeddedGraph* _graph)
+{
+    EmbeddedEdge *ed, *end;
+    EmbeddedFace* face;
+    vector<EmbeddedFace*> faces;
+    vector<long long> originFaces;
+    vector<long long> newFaces;
+    vector<vector<long long>> existFaces;
+
+    _graph->initFace();
+    for (int i = 0; i < _graph->getVerticesNum(); ++i) {
+        ed = end = _graph->getVertex(i)->getFirstEdge();
+        do {
+            face = ed->getNextFace();
+            if (find(faces.begin(), faces.end(), face) == faces.end())
+                faces.push_back(face);
+            ed = ed->getNext();
+        } while(ed != end);
+    }
+
+    for (auto face : faces) {
+        originFaces.push_back(0ULL);
+        newFaces.push_back(0ULL);
+        for (auto vertex : face->getFace()) {
+            originFaces.back() += (1ULL << vertex);
+            newFaces.back() += (1ULL << vertex);
+        }
+    }
+
+    bool exsitAlready = false;
+    for (auto embedding : embeddings) {
+        newFaces = originFaces;
+        for (auto transposition : embedding)
+            Utility::allExchange(transposition.first, transposition.second, newFaces);
+        sort(newFaces.begin(), newFaces.end());
+        exsitAlready = false;
+        for (auto compareFaces : existFaces) {
+            if (compareFaces == newFaces) {
+                exsitAlready = true;
+                break;
+            }
+        }
+        if (!exsitAlready) {
+            inequivalentEmbeddings.push_back(embedding);
+            existFaces.push_back(newFaces);
+        }
+    }
 }
 
 void EmbeddingSet::nextIndexies(vector<int>& indexies, const vector<int> &indexiesMax)
@@ -119,4 +170,35 @@ vector<pair<int, int>> EmbeddingSet::convertToTranspositions(const vector<int> &
     }
 
     return mapping;
+}
+
+vector<int> EmbeddingSet::convertToPermutation(const vector<pair<int, int>>& _transpositions, int _length)
+{
+    vector<int> permutation;
+    for (int i = 0; i < _length; ++i)
+        permutation.push_back(i);
+
+    int temp = 0;
+    for (auto transposition : _transpositions) {
+        temp = permutation[transposition.first];
+        permutation[transposition.first] = permutation[transposition.second];
+        permutation[transposition.second] = temp;
+    }
+
+    return permutation;
+}
+
+vector<string> EmbeddingSet::getSaveDate(int _embeddingLength)
+{
+    vector<string> data;
+    for (auto embedding : inequivalentEmbeddings) {
+        vector<int> perm = convertToPermutation(embedding, _embeddingLength);
+        string newPermutationStr = "";
+        for (auto n : perm) {
+            newPermutationStr += get<0>(EmbeddedVertex::idToChar(n, false));
+        }
+        data.push_back(newPermutationStr);
+    }
+
+    return data;
 }
