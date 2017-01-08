@@ -6,3 +6,6 @@
 
 # Ignore make file.
 /makefile
+
+# Ignore debug file.
+GraphLibraryDebug.xcodeproj/*
