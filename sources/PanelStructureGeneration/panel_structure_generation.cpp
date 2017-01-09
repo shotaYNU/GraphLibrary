@@ -99,10 +99,11 @@ void PanelStrctureGeneration::addIfNotExist(const vector<int>& _selectIndxies, i
         face->resetPanel();
     for (auto index : _selectIndxies)
         faces[index]->setPanel();
-    if (!isFullPanel(faces) && graph->isPIT()) {
+    if (!isFullPanel(faces)) {
         PaneledGraphRepresentation graphRep(graph);
         graphRep.setBestRepresentation();
-        if (!contains(graphRep)) {
+        int equivalentNum = contains(graphRep);
+        if (equivalentNum == -1) {
             graphRepresentations.push_back(graphRep);
 //            graph->saveGraph("");
         }
@@ -118,13 +119,13 @@ bool PanelStrctureGeneration::isFullPanel(const vector<PaneledFace*>& _faces)
     return true;
 }
 
-bool PanelStrctureGeneration::contains(const PaneledGraphRepresentation& _newGraphRepresentation)
+int PanelStrctureGeneration::contains(const PaneledGraphRepresentation& _newGraphRepresentation)
 {
-    for (auto graphRep : graphRepresentations)
-        if (graphRep.compareRepresentation(_newGraphRepresentation) == Representation::Results::AUTOMORPHISM)
-            return true;
+    for (int i = 0; i < graphRepresentations.size(); ++i)
+        if (graphRepresentations[i].compareRepresentation(_newGraphRepresentation) == Representation::Results::AUTOMORPHISM)
+            return i;
 
-    return false;
+    return -1;
 }
 
 vector<bool> PanelStrctureGeneration::getProductSet(const vector<bool>& _set1, const vector<bool>& _set2) const

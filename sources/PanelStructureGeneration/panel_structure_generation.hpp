@@ -24,7 +24,7 @@ private:
 
     void addIfNotExist(const vector<int>& _selectIndxies, int _embeddingNum);
     bool isFullPanel(const vector<PaneledFace*>& _faces);
-    bool contains(const PaneledGraphRepresentation& _newGraphRepresentation);
+    int contains(const PaneledGraphRepresentation& _newGraphRepresentation);
     vector<bool> getProductSet(const vector<bool>& _set1, const vector<bool>& _set2) const;
     tuple<vector<int>, vector<int>, int> select(const vector<int>& _selectIndexies) const;
     void settingRecursive(const vector<int>& _selectedIndexies, const vector<int>& _restIndexies);
