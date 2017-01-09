@@ -14,7 +14,8 @@ public:
     int getEmbeddingsNum() { return (int)embeddings.size(); }
     vector<pair<int, int>> getInequivalentEmbeddings(int _index) const { return inequivalentEmbeddings[_index]; }
     int getInequivalentEmbeddingsNum() { return (int)inequivalentEmbeddings.size(); }
-    vector<string> getSaveDate(int _embeddingLength);
+    string getSaveData(int _index, int _embeddingLength);
+    vector<string> getSaveDatas(int _embeddingLength);
 
 protected:
     vector<vector<pair<int, int>>> embeddings;
