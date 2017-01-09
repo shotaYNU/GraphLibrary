@@ -2,7 +2,7 @@
 
 PaneledRepresentation::PaneledRepresentation() : Representation()
 {
-    
+
 }
 
 PaneledRepresentation::PaneledRepresentation(const PaneledRepresentation& _obj): Representation(_obj)
@@ -13,7 +13,7 @@ PaneledRepresentation::PaneledRepresentation(const PaneledRepresentation& _obj):
 
 PaneledRepresentation::~PaneledRepresentation()
 {
-    
+
 }
 
 Representation::Results PaneledRepresentation::compareRepresentation(const Representation& _rep) const
@@ -43,7 +43,7 @@ void PaneledRepresentation::setRepresentation(EmbeddedEdge* _ed, bool _clockwise
     edge = _ed;
     clockwise = _clockwise;
 
-    BreadthFirstSearch bfs;
+    PaneledBreadthFirstSearch bfs;
     EmbeddedEdge* nowEdge = nullptr;
     PaneledFace* face = nullptr;
     int nowId = -1;
