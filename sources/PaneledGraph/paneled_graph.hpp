@@ -15,6 +15,7 @@ public:
     bool isPIT();
     bool isFlat(int _id);
     void saveGraph(string _filepath);
+    void saveGraph(string _filepath, vector<pair<string, string>> _withData);
 
 
 protected:

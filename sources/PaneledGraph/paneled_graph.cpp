@@ -60,6 +60,30 @@ void PaneledGraph::saveGraph(string _filepath)
     outfile.close();
 }
 
+
+void PaneledGraph::saveGraph(string _filepath, vector<pair<string, string>> _withData)
+{
+    ofstream outfile(_filepath);
+    map<string, picojson::value> data;
+
+    data["genus"] = picojson::value((double)genus);
+    data["name"] = picojson::value(name);
+    data["orientable"] = picojson::value(orientable);
+    data["rotation"] = picojson::value(toRotationString());
+    data["faces"] = picojson::value(toFacesString());
+    for (auto onedata : _withData) {
+        string key = get<0>(onedata);
+        string value = get<1>(onedata);
+        data[key] = picojson::value(value);
+    }
+
+    picojson::value v(data);
+    std::string json_str = v.serialize(false);
+
+    outfile << json_str;
+    outfile.close();
+}
+
 string PaneledGraph::toFacesString()
 {
     vector<PaneledFace*> faces;
