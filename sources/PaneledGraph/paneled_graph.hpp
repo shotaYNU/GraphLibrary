@@ -13,13 +13,13 @@ public:
 
     //Operation of panel.
     bool isPIT();
+    bool isFlat(int _id);
 
 
 protected:
     EmbeddingSet embeddingSet;
 
 private:
-    bool isFlat(int _id);
     void setPanelsWithAllEmbeddings();
 
 };

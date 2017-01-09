@@ -11,6 +11,7 @@ public:
     PaneledGraphRepresentation();
     PaneledGraphRepresentation(PaneledGraph* _graph);
     ~PaneledGraphRepresentation();
+    void setBestRepresentation();
 
 protected:
     void setNewBestRepresentation() { bestRepresentation = new PaneledRepresentation(*(PaneledRepresentation*)newRepresentation); }

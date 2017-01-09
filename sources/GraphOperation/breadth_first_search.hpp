@@ -16,15 +16,15 @@ public:
     EmbeddedEdge* next() { return order[nowCount++]; }
 
 protected:
-
-private:
     EmbeddedGraph* searchGraph;
-    EmbeddedEdge *start;
+    EmbeddedEdge* start;
     EmbeddedEdge* waiting[GraphProperty::MAX_EDGE];
     EmbeddedEdge* order[GraphProperty::MAX_EDGE];
     bool visited[GraphProperty::MAX_VERTEX] = { false };
     bool clockwise;
     int endCount, nowCount;
+
+private:
 
 };
 
