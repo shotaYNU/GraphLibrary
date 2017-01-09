@@ -12,11 +12,11 @@ public:
 
     //Operation of panel.
     bool isPIT();
+    bool isFlat(int _id);
 
 protected:
 
 private:
-    bool isFlat(int _id);
 
 };
 

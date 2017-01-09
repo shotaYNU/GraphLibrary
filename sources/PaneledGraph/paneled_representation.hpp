@@ -3,6 +3,7 @@
 
 #include "../GraphOperation/representation.hpp"
 #include "paneled_face.hpp"
+#include "paneled_breadth_first_search.hpp"
 
 class PaneledRepresentation : public Representation {
 public:
