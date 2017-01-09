@@ -14,6 +14,7 @@ public:
     //Operation of panel.
     bool isPIT();
     bool isFlat(int _id);
+    void saveGraph(string _filepath);
 
 
 protected:
@@ -21,6 +22,7 @@ protected:
 
 private:
     void setPanelsWithAllEmbeddings();
+    string toFacesString();
 
 };
 
