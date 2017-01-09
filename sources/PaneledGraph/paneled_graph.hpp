@@ -13,10 +13,12 @@ public:
     //Operation of panel.
     bool isPIT();
     bool isFlat(int _id);
+    void saveGraph(string _filepath);
 
 protected:
 
 private:
+    string toFacesString();
 
 };
 
