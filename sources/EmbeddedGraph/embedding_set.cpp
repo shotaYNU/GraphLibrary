@@ -180,25 +180,34 @@ vector<int> EmbeddingSet::convertToPermutation(const vector<pair<int, int>>& _tr
 
     int temp = 0;
     for (auto transposition : _transpositions) {
-        temp = permutation[transposition.first];
-        permutation[transposition.first] = permutation[transposition.second];
-        permutation[transposition.second] = temp;
+        vector<int>::iterator iter1 = find(permutation.begin(), permutation.end(), transposition.first);
+        int index1 = (int)distance(permutation.begin(), iter1);
+        vector<int>::iterator iter2 = find(permutation.begin(), permutation.end(), transposition.second);
+        int index2 = (int)distance(permutation.begin(), iter2);
+        temp = permutation[index1];
+        permutation[index1] = permutation[index2];
+        permutation[index2] = temp;
     }
 
     return permutation;
 }
 
-vector<string> EmbeddingSet::getSaveDate(int _embeddingLength)
+string EmbeddingSet::getSaveData(int _index, int _embeddingLength)
+{
+    string data;
+    vector<int> perm = convertToPermutation(embeddings[_index], _embeddingLength);
+    for (auto n : perm) {
+        data += get<0>(EmbeddedVertex::idToChar(n, false));
+    }
+
+    return data;
+}
+
+vector<string> EmbeddingSet::getSaveDatas(int _embeddingLength)
 {
     vector<string> data;
-    for (auto embedding : inequivalentEmbeddings) {
-        vector<int> perm = convertToPermutation(embedding, _embeddingLength);
-        string newPermutationStr = "";
-        for (auto n : perm) {
-            newPermutationStr += get<0>(EmbeddedVertex::idToChar(n, false));
-        }
-        data.push_back(newPermutationStr);
-    }
+    for (int i = 0; i < inequivalentEmbeddings.size(); ++i)
+        data.push_back(getSaveData(i, _embeddingLength));
 
     return data;
 }
