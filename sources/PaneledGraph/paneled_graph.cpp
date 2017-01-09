@@ -61,7 +61,7 @@ void PaneledGraph::saveGraph(string _filepath)
 }
 
 
-void PaneledGraph::saveGraph(string _filepath, vector<pair<string, string>> _withData)
+void PaneledGraph::saveGraph(string _filepath, vector<pair<string, picojson::value>> _withData)
 {
     ofstream outfile(_filepath);
     map<string, picojson::value> data;
@@ -73,8 +73,8 @@ void PaneledGraph::saveGraph(string _filepath, vector<pair<string, string>> _wit
     data["faces"] = picojson::value(toFacesString());
     for (auto onedata : _withData) {
         string key = get<0>(onedata);
-        string value = get<1>(onedata);
-        data[key] = picojson::value(value);
+        picojson::value value = get<1>(onedata);
+        data[key] = value;
     }
 
     picojson::value v(data);
