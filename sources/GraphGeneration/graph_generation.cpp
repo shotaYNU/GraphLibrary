@@ -1,9 +1,7 @@
 #include "graph_generation.hpp"
 
-GraphGeneration::GraphGeneration(MutableGraph* _graph)
+GraphGeneration::GraphGeneration()
 {
-    graph = _graph;
-    spList = new SplitList(_graph);
     generatedNum = 0;
 }
 
@@ -12,8 +10,10 @@ GraphGeneration::~GraphGeneration()
     delete spList;
 }
 
-int GraphGeneration::generateStart()
+int GraphGeneration::generateStart(MutableGraph *_graph)
 {
+    graph = _graph;
+    spList = new SplitList(graph);
     graphRepresentation.init(graph);
     graphRepresentation.setBestRepresentation();
     aut.setEdgeAutohomeomorphism(&graphRepresentation);

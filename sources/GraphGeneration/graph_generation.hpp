@@ -4,15 +4,17 @@
 #include "split_list.hpp"
 #include "graph_generate_representation.hpp"
 #include "../GraphOperation/autohomeomorphism.hpp"
+#include "../Utilities/file_save_dispatcher.hpp"
 
 class GraphGeneration {
 public:
     //A constructor and a destructor.
-    GraphGeneration(MutableGraph* _graph);
+    GraphGeneration();
     ~GraphGeneration();
 
     //Methods to generate graphs.
-    int generateStart();
+    int generateStart(MutableGraph* _graph);
+    void setSaveSetting(string _saveDirectoryPath, string _commonName) { fileSaveDispatcher.setSaveSetting(_saveDirectoryPath, _commonName); }
 
 protected:
     MutableGraph* graph;
@@ -20,10 +22,11 @@ protected:
     Autohomeomorphism aut;
     GraphGenerateRepresentation graphRepresentation;
     int generatedNum;
+    FileSaveDispatcher fileSaveDispatcher;
 
     virtual bool isContinue() const { return (graph->getVerticesNum() < SPLIT_MAX); }
     virtual void continueAction() {}
-    virtual void terminateAction() { generatedNum++; }
+    virtual void terminateAction() { fileSaveDispatcher.save(graph->toSaveGraph()); generatedNum++; }
 
 private:
     int SPLIT_MAX = 10;
