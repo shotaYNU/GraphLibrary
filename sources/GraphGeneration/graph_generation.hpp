@@ -3,7 +3,7 @@
 
 #include "split_list.hpp"
 #include "graph_generate_representation.hpp"
-#include "../GraphOperation/automorphism.hpp"
+#include "../GraphOperation/autohomeomorphism.hpp"
 
 class GraphGeneration {
 public:
@@ -17,7 +17,7 @@ public:
 protected:
     MutableGraph* graph;
     SplitList* spList;
-    Automorphism aut;
+    Autohomeomorphism aut;
     GraphGenerateRepresentation graphRepresentation;
     int generatedNum;
 
