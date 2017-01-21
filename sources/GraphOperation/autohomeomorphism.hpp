@@ -1,13 +1,13 @@
-#ifndef Automorphism_hpp
-#define Automorphism_hpp
+#ifndef Autohomeomorphism_hpp
+#define Autohomeomorphism_hpp
 
 #include "graph_representation.hpp"
 
-class Automorphism {
+class Autohomeomorphism {
 public:
     //Constructors and a destructor.
-    Automorphism();
-    ~Automorphism();
+    Autohomeomorphism();
+    ~Autohomeomorphism();
 
     //Getter methods and setter methods
     int getNormalNum() const { return normalCount; }
@@ -15,19 +15,19 @@ public:
     EmbeddedEdge* getAutosEdge(int _autosCount, int _num) const { return autos[_autosCount][_num]; }
 
     //Methods to set automorphism.
-    void setEdgeAutomorphism(GraphRepresentation* _graphRep);
-    void setAllAutomorphism();
+    void setEdgeAutohomeomorphism(GraphRepresentation* _graphRep);
+    void setAllAutohomeomorphism();
 
 protected:
 
 private:
     GraphRepresentation* graphRepresentation;
-    EmbeddedEdge* automorphismNormal[GraphProperty::MAX_EDGE];
-    EmbeddedEdge* automorphismMirror[GraphProperty::MAX_EDGE];
+    EmbeddedEdge* autohomeomorphismNormal[GraphProperty::MAX_EDGE];
+    EmbeddedEdge* autohomeomorphismMirror[GraphProperty::MAX_EDGE];
     EmbeddedEdge* autos[2 * GraphProperty::MAX_EDGE][GraphProperty::MAX_EDGE];
     int normalCount, mirrorCount;
 
-    void setAutomorphism(int _count, bool _clockwise, EmbeddedEdge** _auto);
+    void setAutohomeomorphism(int _count, bool _clockwise, EmbeddedEdge** _auto);
 
 };
 

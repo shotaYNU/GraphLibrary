@@ -1,9 +1,7 @@
 #include "graph_generation.hpp"
 
-GraphGeneration::GraphGeneration(MutableGraph* _graph)
+GraphGeneration::GraphGeneration()
 {
-    graph = _graph;
-    spList = new SplitList(_graph);
     generatedNum = 0;
 }
 
@@ -12,12 +10,14 @@ GraphGeneration::~GraphGeneration()
     delete spList;
 }
 
-int GraphGeneration::generateStart()
+int GraphGeneration::generateStart(MutableGraph *_graph)
 {
+    graph = _graph;
+    spList = new SplitList(graph);
     graphRepresentation.init(graph);
     graphRepresentation.setBestRepresentation();
-    aut.setEdgeAutomorphism(&graphRepresentation);
-    aut.setAllAutomorphism();
+    aut.setEdgeAutohomeomorphism(&graphRepresentation);
+    aut.setAllAutohomeomorphism();
     doSplittingLoop();
 
     return generatedNum;
@@ -52,8 +52,8 @@ void GraphGeneration::doSplittingLoop()
                     terminateAction();
                 }
                 else if (graphRepresentation.setBestRepresentationIfLastBest()) {
-                    aut.setEdgeAutomorphism(&graphRepresentation);
-                    aut.setAllAutomorphism();
+                    aut.setEdgeAutohomeomorphism(&graphRepresentation);
+                    aut.setAllAutohomeomorphism();
                     doSplittingLoop();
                 }
                 graph->contractDegn(splitEdge, deg, saveList);
@@ -66,15 +66,15 @@ void GraphGeneration::doSplittingLoop()
                     ed1 = splitEdge->getNext()->getInverse();
                     ed2 = ed1->getNext()->getNext();
                     if (graphRepresentation.canEdegMakeBest(ed1) || graphRepresentation.canEdegMakeBest(ed2)) {
-                        aut.setEdgeAutomorphism(&graphRepresentation);
-                        aut.setAllAutomorphism();
+                        aut.setEdgeAutohomeomorphism(&graphRepresentation);
+                        aut.setAllAutohomeomorphism();
                         doSplittingLoop();
                     }
                 } else {
                     ed1 = splitEdge->getNext()->getInverse();
                     if (graphRepresentation.canEdegMakeBest(ed1)) {
-                        aut.setEdgeAutomorphism(&graphRepresentation);
-                        aut.setAllAutomorphism();
+                        aut.setEdgeAutohomeomorphism(&graphRepresentation);
+                        aut.setAllAutohomeomorphism();
                         doSplittingLoop();
                     }
                 }
