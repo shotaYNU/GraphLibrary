@@ -37,7 +37,7 @@ public:
 
     //IOOperation of the graph.
     void openGraph(string _filepath);
-    void saveGraph(string _filepath);
+    string toSaveGraph();
 
     //Initialize methods.
     void initContractible();
