@@ -15,11 +15,13 @@ public:
     bool isFlat(int _id);
     void saveGraph(string _filepath);
     void saveGraph(string _filepath, vector<pair<string, picojson::value>> _withData);
+    void openGraph(string _filepath);
 
 protected:
 
 private:
     string toFacesString();
+    void setPanel(string _panelString);
 
 };
 
