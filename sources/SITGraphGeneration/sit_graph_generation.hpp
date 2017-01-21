@@ -7,12 +7,12 @@
 class SITGraphGeneration : public GraphGeneration {
 public:
     //A constructor and a destructor.
-    SITGraphGeneration(SITMutableGraph* _graph);
+    SITGraphGeneration();
     ~SITGraphGeneration();
 
 protected:
     bool isContinue() const { return ((SITMutableGraph*)graph)->isSIT(); }
-    void continueAction() { generatedNum++; }
+    void continueAction() { fileSaveDispatcher.save(graph->toSaveGraph()); generatedNum++; }
     void terminateAction() {}
 
 private:
