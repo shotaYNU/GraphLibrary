@@ -164,7 +164,7 @@ void SplitList::markAllMappingEdge(bool _clockwise, EmbeddedEdge* _ed, int _star
     }
 }
 
-void SplitList::init(Automorphism* _aut)
+void SplitList::init(Autohomeomorphism* _aut)
 {
     aut = _aut;
     mirrorStart = _aut->getNormalNum();
@@ -175,7 +175,7 @@ void SplitList::init(Automorphism* _aut)
     }
 }
 
-void SplitList::setSplitListAll(Automorphism* _aut)
+void SplitList::setSplitListAll(Autohomeomorphism* _aut)
 {
     init(_aut);
     graph->initContractible();

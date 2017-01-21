@@ -187,9 +187,8 @@ void EmbeddedGraph::viewUntiClockwiseOrder() const
 //      vertex 2's rotation is "0 3 1"
 //      vertex 3's rotation is "0 1 2"
 // => rotation: "bdc,cda,adb,abc"
-void EmbeddedGraph::saveGraph(string _filepath)
+string EmbeddedGraph::toSaveGraph()
 {
-    ofstream outfile(_filepath);
     map<string, picojson::value> data;
 
     data["genus"] = picojson::value((double)genus);
@@ -201,10 +200,9 @@ void EmbeddedGraph::saveGraph(string _filepath)
     data["rotation"] = picojson::value(toRotationString());
 
     picojson::value v(data);
-    std::string json_str = v.serialize(false);
+    std::string jsonString = v.serialize(false);
 
-    outfile << json_str;
-    outfile.close();
+    return jsonString;
 }
 
 string EmbeddedGraph::toRotationString() const
