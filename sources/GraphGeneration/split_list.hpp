@@ -2,7 +2,7 @@
 #define SplitList_hpp
 
 #include "mutable_graph.hpp"
-#include "../GraphOperation/automorphism.hpp"
+#include "../GraphOperation/autohomeomorphism.hpp"
 #include <map>
 
 class SplitList {
@@ -14,14 +14,14 @@ public:
     //Getter methods and setter methods.
     int getSplitDeg(int count) const { return splitDegList[count]; }
     int getSplitCount() const { return splitCount; }
-    void setSplitListAll(Automorphism* aut);
+    void setSplitListAll(Autohomeomorphism* aut);
     EmbeddedEdge* getSplitEdge(int count) const { return splitEdgeList[count]; }
 
 protected:
 
 private:
     MutableGraph* graph;
-    Automorphism* aut;
+    Autohomeomorphism* aut;
     EmbeddedEdge* splitEdgeList[GraphProperty::MAX_EDGE];
     int splitDegList[GraphProperty::MAX_EDGE];
     int splitCount;
@@ -35,7 +35,7 @@ private:
     void setSplitListDeg4();
     void setSplitListDegn(int _n);
     void setSplitListDegnPlus();
-    void init(Automorphism* _aut);
+    void init(Autohomeomorphism* _aut);
 
 };
 
