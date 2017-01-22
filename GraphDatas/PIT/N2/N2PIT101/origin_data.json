@@ -1,0 +1,7 @@
+{
+  "name": "N2SIT205",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcde,aefgdhic,abiEFd,acFhbgIe,adICfb,beCDHIg,bfId,bdFi,bhFGDEc",
+  "faces": "bca:1,cda:1,dea:1,eba:1,efb:0,fgb:0,gdb:1,dhb:1,hib:0,icb:0,iec:1,efc:1,fdc:0,fhd:0,gid:0,ied:0,hif:1,igf:1"
+}

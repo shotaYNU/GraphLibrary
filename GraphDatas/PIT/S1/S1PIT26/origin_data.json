@@ -1,0 +1,7 @@
+{
+  "name": "ST13",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "becd,ieadfcg,aegbfhd,bachigef,gcabihfd,cbdeh,ibced,eidcf,ebgdh",
+  "faces": "bea:1,eca:1,cda:1,dba:1,ieb:0,dfb:0,fcb:1,cgb:1,gib:1,egc:0,fhc:1,hdc:0,hid:1,igd:0,ged:1,efd:1,ihe:1,hfe:0"
+}

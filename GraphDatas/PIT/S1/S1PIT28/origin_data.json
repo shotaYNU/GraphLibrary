@@ -1,0 +1,7 @@
+{
+  "name": "ST3",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "ecdbg,adfcig,hdaeibf,achegfb,icagdh,hcbdg,eabihfd,iedcfg,cehgb",
+  "faces": "eca:1,cda:0,dba:1,bga:0,gea:1,dfb:1,fcb:0,cib:1,igb:1,hdc:0,eic:0,fhc:1,hed:1,egd:0,gfd:0,hie:1,ghf:1,ihg:0"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "ST1",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bfegh,ecgfahd,hgbefd,hcfgeb,afcbdg,abgdce,fbchaed,cdbag",
+  "faces": "bfa:0,fea:1,ega:0,gha:1,hba:1,ecb:0,cgb:0,gfb:0,hdb:0,deb:0,hgc:0,efc:0,fdc:0,dhc:1,fgd:0,ged:0"
+}
