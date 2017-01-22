@@ -12,13 +12,17 @@ public:
     //Getter methods and setter methods
     void setMappedAdjacents();
     bool isomorphic(const Isomorphism& isomorphism) const;
+    vector<bool*> getAdjacent() const { return adjacent; }
+    vector<vector<bool*>> getMappedAdjacents() const { return mappedAdjacents; }
 
 protected:
-
-private:
     vector<bool*> adjacent;
     vector<vector<bool*>> mappedAdjacents;
     EmbeddedGraph* graph;
+
+    bool equal(const vector<bool*>& _adj1, const vector<bool*>& _adj2) const;
+
+private:
 
 };
 
