@@ -19,6 +19,8 @@ void Isomorphism::setMappedAdjacents()
     for (int i = 0; i < graph->getVerticesNum(); ++i) {
         ed = end = graph->getVertex(i)->getFirstEdge();
         adjacent.push_back(new bool[20]);
+        for (int b = 0; b < 20; b++)
+            adjacent.back()[b] = false;
         int deg = graph->getVertexDegree(i);
         degrees.push_back(make_pair(deg, i));
         do {
@@ -81,12 +83,8 @@ void Isomorphism::setMappedAdjacents()
     for (int i = 0; i < pairs.size(); ++i) {
         vector<bool*> newAjacent = adjacent;
         vector<pair<int, int>> p = Utility::convertToTranspositions(origMap, pairs[i]);
-        for (pair<int, int> transposition : p) {
+        for (pair<int, int> transposition : p)
             Utility::allExchangeBool(transposition.first, transposition.second, newAjacent);
-            temp = newAjacent[transposition.first];
-            newAjacent[transposition.first] = newAjacent[transposition.second];
-            newAjacent[transposition.second] = temp;
-        }
         mappedAdjacents.push_back(newAjacent);
     }
 }
@@ -96,8 +94,20 @@ bool Isomorphism::isomorphic(const Isomorphism& isomorphism) const
     if (mappedAdjacents.size() != isomorphism.mappedAdjacents.size()) return false;
 
     for (auto adj : mappedAdjacents)
-        if (adj == isomorphism.adjacent)
+        if (equal(adj, isomorphism.adjacent))
             return true;
 
     return false;
+}
+
+bool Isomorphism::equal(const vector<bool*>& _adj1, const vector<bool*>& _adj2) const
+{
+    if (_adj1.size() != _adj2.size()) return false;
+
+    for (int i = 0; i < _adj1.size(); ++i)
+        for (int j = 0; j < _adj1.size(); ++j)
+            if (_adj1[i][j] != _adj2[i][j])
+                return false;
+
+    return true;
 }

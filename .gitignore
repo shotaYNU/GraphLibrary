@@ -9,3 +9,5 @@
 
 # Ignore debug file.
 GraphLibraryDebug.xcodeproj/*
+debuger.hpp
+
