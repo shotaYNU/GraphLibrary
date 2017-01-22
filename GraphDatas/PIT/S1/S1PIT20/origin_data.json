@@ -1,0 +1,7 @@
+{
+  "name": "T8",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdceh,cfdah,adgfbhie,abfheigc,dhaci,dbcgh,fcdih,fgicbaed,chgde",
+  "faces": "bda:0,dca:0,cea:0,eha:0,hba:0,cfb:0,fdb:0,hcb:0,dgc:0,gfc:0,hic:0,iec:0,fhd:0,hed:0,eid:0,igd:0,ghf:0,ihg:0"
+}

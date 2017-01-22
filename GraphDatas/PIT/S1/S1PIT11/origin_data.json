@@ -1,0 +1,7 @@
+{
+  "name": "T19",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdce,cgfdaeh,adgbhie,abfeihgc,dfghbaci,dbge,fbcdhe,begdic,chde",
+  "faces": "bda:1,dca:1,cea:1,eba:1,cgb:1,gfb:1,fdb:0,ehb:0,hcb:1,dgc:0,hic:1,iec:0,fed:1,eid:1,ihd:0,hgd:1,fge:0,ghe:1"
+}

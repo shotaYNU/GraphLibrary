@@ -1,0 +1,7 @@
+{
+  "name": "T3",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdceg,cfdaghe,adhfbe,abfgehc,dgacbh,bchgd,fhbaed,cdebgf",
+  "faces": "bda:1,dca:0,cea:1,ega:1,gba:0,cfb:0,fdb:1,ghb:0,heb:1,ecb:0,dhc:0,hfc:1,fgd:0,ged:0,ehd:1,hgf:1"
+}
