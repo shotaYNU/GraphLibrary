@@ -13,6 +13,7 @@ PaneledGraph::~PaneledGraph()
 bool PaneledGraph::isPIT()
 {
     initContractible();
+    setPanelsWithAllEmbeddings();
     bool isIrreducible = true;
     for (int i = 0; i < verticesNum; ++i)
         if (vertices[i]->getIsContractible()) {
@@ -20,7 +21,6 @@ bool PaneledGraph::isPIT()
             break;
         }
     if (isIrreducible) return true;
-    setPanelsWithAllEmbeddings();
     for (int i = 0; i < verticesNum; ++i)
         if (vertices[i]->getIsContractible() && isFlat(i))
             return false;
