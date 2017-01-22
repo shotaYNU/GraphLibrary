@@ -17,6 +17,8 @@ public:
     void saveGraph(string _filepath);
     void saveGraph(string _filepath, vector<pair<string, picojson::value>> _withData);
     void openGraph(string _filepath);
+    string toSaveGraph();
+    string toSaveGraph(vector<pair<string, picojson::value>> _withData);
 
 
 protected:
