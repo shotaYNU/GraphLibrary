@@ -44,7 +44,7 @@ void EmbeddingSet::setAllEmbeddings(EmbeddedGraph* _graph)
     for (int i = 0; i < maps.size(); ++i) {
         vector<vector<pair<int, int>>> onePairs;
         do {
-            vector<pair<int, int>> p = convertToTranspositions(originMaps[i], maps[i]);
+            vector<pair<int, int>> p = Utility::convertToTranspositions(originMaps[i], maps[i]);
             onePairs.push_back(p);
         } while(next_permutation(maps[i].begin(), maps[i].end()));
         pairs.push_back(onePairs);
@@ -63,7 +63,7 @@ void EmbeddingSet::setAllEmbeddings(EmbeddedGraph* _graph)
         for (int i = 0; i < indexies.size(); ++i)
             p.insert(p.end(), pairs[i][indexies[i]].begin(), pairs[i][indexies[i]].end());
         embCan.push_back(p);
-        nextIndexies(indexies, indexiesMax);
+        Utility::nextIndexies(indexies, indexiesMax);
     } while (origin != indexies);
 
     long long temp = 0;
@@ -71,7 +71,7 @@ void EmbeddingSet::setAllEmbeddings(EmbeddedGraph* _graph)
         adjacentMutate = adjacentOrigin;
         mapping = embCan[i];
         for (pair<int, int> transposition : mapping) {
-            Utility::allExchange(transposition.first, transposition.second, adjacentMutate);
+            Utility::allExchangeLong(transposition.first, transposition.second, adjacentMutate);
             temp = adjacentMutate[transposition.first];
             adjacentMutate[transposition.first] = adjacentMutate[transposition.second];
             adjacentMutate[transposition.second] = temp;
@@ -117,7 +117,7 @@ void EmbeddingSet::setAllInequivalentEmbeddings(EmbeddedGraph* _graph)
     for (auto embedding : embeddings) {
         newFaces = originFaces;
         for (auto transposition : embedding)
-            Utility::allExchange(transposition.first, transposition.second, newFaces);
+            Utility::allExchangeLong(transposition.first, transposition.second, newFaces);
         sort(newFaces.begin(), newFaces.end());
         exsitAlready = false;
         for (auto compareFaces : existFaces) {
@@ -133,69 +133,10 @@ void EmbeddingSet::setAllInequivalentEmbeddings(EmbeddedGraph* _graph)
     }
 }
 
-void EmbeddingSet::nextIndexies(vector<int>& indexies, const vector<int> &indexiesMax)
-{
-    int currentIndex = (int)(indexies.size() - 1);
-    while (currentIndex >= 0) {
-        indexies[currentIndex] += 1;
-        if (indexies[currentIndex] == indexiesMax[currentIndex]) {
-            indexies[currentIndex] = 0;
-            currentIndex -= 1;
-        } else break;
-    }
-}
-
-vector<pair<int, int>> EmbeddingSet::convertToTranspositions(const vector<int> &_originEmbedding, const vector<int> &_newEmbedding)
-{
-    map<int, int> indexies;
-    for (int i = 0; i < _newEmbedding.size(); ++i) {
-        indexies[_originEmbedding[i]] = i;
-    }
-    int prev = 0;
-    int next = 0;
-    int start = 0;
-    vector<pair<int, int>> mapping;
-
-    for (int i = 0; i < _originEmbedding.size(); ++i) {
-        start = prev = _originEmbedding[i];
-        next = _newEmbedding[i];
-        if (indexies[next] == -1) continue;
-        while (start != next) {
-            mapping.push_back(make_pair(prev, next));
-            prev = next;
-            next = _newEmbedding[indexies[prev]];
-            indexies[prev] = -1;
-        }
-        indexies[next] = -1;
-    }
-
-    return mapping;
-}
-
-vector<int> EmbeddingSet::convertToPermutation(const vector<pair<int, int>>& _transpositions, int _length)
-{
-    vector<int> permutation;
-    for (int i = 0; i < _length; ++i)
-        permutation.push_back(i);
-
-    int temp = 0;
-    for (auto transposition : _transpositions) {
-        vector<int>::iterator iter1 = find(permutation.begin(), permutation.end(), transposition.first);
-        int index1 = (int)distance(permutation.begin(), iter1);
-        vector<int>::iterator iter2 = find(permutation.begin(), permutation.end(), transposition.second);
-        int index2 = (int)distance(permutation.begin(), iter2);
-        temp = permutation[index1];
-        permutation[index1] = permutation[index2];
-        permutation[index2] = temp;
-    }
-
-    return permutation;
-}
-
 string EmbeddingSet::getSaveData(int _index, int _embeddingLength)
 {
     string data;
-    vector<int> perm = convertToPermutation(embeddings[_index], _embeddingLength);
+    vector<int> perm = Utility::convertToPermutation(embeddings[_index], _embeddingLength);
     for (auto n : perm) {
         data += get<0>(EmbeddedVertex::idToChar(n, false));
     }
