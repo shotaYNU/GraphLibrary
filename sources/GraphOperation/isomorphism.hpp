@@ -5,6 +5,12 @@
 
 class Isomorphism {
 public:
+    enum Results {
+        FAIL = -1,
+        EQUIVALENT = 0,
+        BETTER = 1,
+    };
+
     //Constructors and a destructor.
     Isomorphism(EmbeddedGraph* _graph);
     ~Isomorphism();
@@ -12,15 +18,14 @@ public:
     //Getter methods and setter methods
     void setMappedAdjacents();
     bool isomorphic(const Isomorphism& isomorphism) const;
-    vector<bool*> getAdjacent() const { return adjacent; }
-    vector<vector<bool*>> getMappedAdjacents() const { return mappedAdjacents; }
 
 protected:
-    vector<bool*> adjacent;
-    vector<vector<bool*>> mappedAdjacents;
+    int bestAdjacentRepresentation[GraphProperty::MAX_EDGE];
+    int repCount;
     EmbeddedGraph* graph;
 
-    bool equal(const vector<bool*>& _adj1, const vector<bool*>& _adj2) const;
+    Results compareAdjacent(const int(&_adj1)[GraphProperty::MAX_EDGE], const int(&_adj2)[GraphProperty::MAX_EDGE]) const;
+    void setAdjacentRepresentation(const vector<bool*>& _adjacent, int(&_newAdjacentRepresentation)[GraphProperty::MAX_EDGE]);
 
 private:
 
