@@ -30,20 +30,10 @@ void Isomorphism::setMappedAdjacents()
         } while(ed != end);
     }
     sort(degrees.begin(), degrees.end());
-    int nowColor = 0;
-    int prev = -1;
-    for (int i = 0; i < degrees.size(); ++i) {
-        if (prev != degrees[i].first) {
-            prev = degrees[i].first;
-            degrees[i].first = ++nowColor;
-        } else {
-            degrees[i].first = nowColor;
-        }
-    }
 
+    int prev = -1;
     vector<int> degMap;
     vector<int> origMap;
-
     for (int i = 0; i < degrees.size(); ++i) {
         origMap.push_back(i);
         degMap.push_back(degrees[i].second);
@@ -84,12 +74,22 @@ void Isomorphism::setMappedAdjacents()
     int newAdjacentRepresentation[GraphProperty::MAX_EDGE];
     bestAdjacentRepresentation[0] = 10000;
     for (int i = 0; i < pairs.size(); ++i) {
-        vector<bool*> newAjacent = adjacent;
+        vector<bool*> newAdjacent;
+        for (auto adj : adjacent) {
+            bool* oneAdjacent = new bool[20];
+            for (int a = 0; a < 20; ++a)
+                oneAdjacent[a] = adj[a];
+            newAdjacent.push_back(oneAdjacent);
+        }
         vector<pair<int, int>> p = Utility::convertToTranspositions(origMap, pairs[i]);
-        for (pair<int, int> transposition : p)
-            Utility::allExchangeBool(transposition.first, transposition.second, newAjacent);
+        for (pair<int, int> transposition : p) {
+            Utility::allExchangeBool(transposition.first, transposition.second, newAdjacent);
+            temp = newAdjacent[transposition.first];
+            newAdjacent[transposition.first] = newAdjacent[transposition.second];
+            newAdjacent[transposition.second] = temp;
+        }
 
-        setAdjacentRepresentation(newAjacent, newAdjacentRepresentation);
+        setAdjacentRepresentation(newAdjacent, newAdjacentRepresentation);
         if (compareAdjacent(bestAdjacentRepresentation, newAdjacentRepresentation) == Results::BETTER)
             for (int r = 0; r < repCount; ++r)
                 bestAdjacentRepresentation[r] = newAdjacentRepresentation[r];
