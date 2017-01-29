@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT24",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcdefg,agDEhc,abhfid,aciGBe,adBHif,aeichg,afhIDb,bEIgfc,cfeHGd",
+  "faces": "bca:0,cda:1,dea:0,efa:1,fga:0,gba:1,gdb:0,deb:1,ehb:0,hcb:1,hfc:0,fic:1,idc:0,igd:1,hie:1,ife:0,hgf:1,hig:0",
+  "re-embedding": "abgdcfehi",
+  "pair": "N2SIT24"
+}

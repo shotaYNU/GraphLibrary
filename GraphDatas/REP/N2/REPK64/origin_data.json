@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT182",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcde,aefDghic,abiEFd,acFBGihe,adhgICfb,beCD,bDIeh,bgedi,bhdGEc",
+  "faces": "bca:1,cda:0,dea:1,eba:0,efb:1,fdb:0,dgb:0,ghb:0,hib:1,icb:0,iec:1,efc:0,fdc:1,gid:1,ihd:0,hed:0,hge:1,gie:0",
+  "re-embedding": "aecbdfghi",
+  "pair": "N2SIT182"
+}

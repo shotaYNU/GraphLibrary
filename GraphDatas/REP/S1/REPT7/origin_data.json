@@ -1,0 +1,9 @@
+{
+  "name": "T10",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdceh,cfdahi,adgfbie,abfheigc,dhaci,dbcgh,fcdih,fgibaed,cbhgde",
+  "faces": "bda:1,dca:0,cea:1,eha:1,hba:0,cfb:0,fdb:1,hib:1,icb:1,dgc:0,gfc:1,iec:0,fhd:0,hed:0,eid:1,igd:1,ghf:1,ihg:0",
+  "re-embedding": "abhdefgci",
+  "pair": "T10"
+}

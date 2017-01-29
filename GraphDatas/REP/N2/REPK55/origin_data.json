@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT167",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcdef,afgedhc,abhFGd,acGhbe,adbgHf,aeHCgb,bfCDHe,bdGEFc",
+  "faces": "bca:1,cda:0,dea:1,efa:1,fba:0,fgb:1,geb:0,edb:0,dhb:1,hcb:0,hfc:1,fgc:0,gdc:1,ghd:0,ghe:1,hfe:0",
+  "re-embedding": "abcfedhg",
+  "pair": "N2SIT167"
+}

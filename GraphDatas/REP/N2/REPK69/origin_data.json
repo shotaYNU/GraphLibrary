@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT26",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcde,aefDghic,abieHd,acHIFBGe,adGHcifb,beiD,bDEh,bgECDi,bhDfec",
+  "faces": "bca:1,cda:0,dea:1,eba:0,efb:1,fdb:0,dgb:1,ghb:0,hib:1,icb:0,iec:1,ehc:0,hdc:1,hid:0,ifd:1,ged:0,ghe:1,ife:0",
+  "re-embedding": "aecbdfghi",
+  "pair": "N2SIT26"
+}

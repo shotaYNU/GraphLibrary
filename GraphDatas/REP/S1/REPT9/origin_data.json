@@ -1,0 +1,9 @@
+{
+  "name": "T13",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdce,cgfdaeh,adgbhie,abfeigc,dfhbaci,dbgihe,fbcdi,ficbe,chfgde",
+  "faces": "bda:1,dca:1,cea:1,eba:1,cgb:1,gfb:0,fdb:0,ehb:0,hcb:1,dgc:0,hic:0,iec:0,fed:1,eid:1,igd:0,fhe:0,gif:1,ihf:1",
+  "re-embedding": "abcedfhgi",
+  "pair": "T13"
+}

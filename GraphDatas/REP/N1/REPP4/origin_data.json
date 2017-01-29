@@ -1,0 +1,9 @@
+{
+  "name": "P2",
+  "orientable": false,
+  "genus": 1,
+  "rotation": "BdcG,cegADF,adebFG,aBfgec,cdgb,dBCg,bedfCA",
+  "faces": "bda:1,dca:0,cga:1,gba:0,ceb:0,egb:1,dfb:0,fcb:1,dec:1,fgc:0,fgd:1,ged:0",
+  "re-embedding": "abgcefd",
+  "pair": "P2"
+}

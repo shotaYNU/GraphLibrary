@@ -1,0 +1,9 @@
+{
+  "name": "T18",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdce,cgfdaeh,adgbhie,abfeihgc,dfhbaci,dbghe,fbcdh,fgdicbe,chde",
+  "faces": "bda:1,dca:0,cea:1,eba:0,cgb:0,gfb:1,fdb:0,ehb:1,hcb:1,dgc:1,hic:0,iec:1,fed:1,eid:0,ihd:1,hgd:0,fhe:0,ghf:1",
+  "re-embedding": "abedcgfhi",
+  "pair": "T18"
+}

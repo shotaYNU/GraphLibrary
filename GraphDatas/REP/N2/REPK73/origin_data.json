@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT49",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcdef,afghiDEc,abEFd,acFhgIBe,adBCf,aeCDHIgb,bfIdh,bgdFi,bhFGD",
+  "faces": "bca:1,cda:0,dea:1,efa:0,fba:0,fgb:0,ghb:1,hib:0,idb:0,deb:0,ecb:0,efc:1,fdc:0,fhd:0,hgd:0,gid:1,hif:1,igf:0",
+  "re-embedding": "afcbedghi",
+  "pair": "N2SIT49"
+}

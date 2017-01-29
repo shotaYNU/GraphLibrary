@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT74",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcde,aefghiDjc,abjEId,acIBJe,adJCiGHfb,beHIg,bfIEh,bgEFi,bhFGeCD,bDEc",
+  "faces": "bca:1,cda:0,dea:1,eba:0,efb:0,fgb:1,ghb:0,hib:0,idb:0,djb:1,jcb:0,jec:1,eic:0,idc:1,jed:0,ige:0,ghe:1,hfe:0,hif:1,igf:0",
+  "re-embedding": "jbdcehfgia",
+  "pair": "N2SIT74"
+}

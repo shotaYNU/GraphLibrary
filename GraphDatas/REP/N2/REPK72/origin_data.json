@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT42",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcde,aefghiDjc,abjEgd,acgIBJe,adJCGHIfb,beIg,bfIdcEh,bgEi,bhEFGD,bDEc",
+  "faces": "bca:1,cda:0,dea:1,eba:0,efb:0,fgb:1,ghb:0,hib:1,idb:0,djb:1,jcb:0,jec:1,egc:0,gdc:1,gid:1,jed:0,ghe:1,hie:0,ife:1,igf:0",
+  "re-embedding": "hbigejdacf",
+  "pair": "N2SIT42"
+}

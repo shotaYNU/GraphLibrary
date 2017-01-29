@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT22",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcde,aefdghic,abiEgd,acgbfHIe,adICGHfb,beHd,bdcEh,bgEFDi,bhDEc",
+  "faces": "bca:1,cda:0,dea:1,eba:0,efb:1,fdb:0,dgb:0,ghb:0,hib:1,icb:0,iec:1,egc:0,gdc:1,fhd:1,hid:0,ied:0,ghe:1,hfe:0",
+  "re-embedding": "aecbdfghi",
+  "pair": "N2SIT22"
+}

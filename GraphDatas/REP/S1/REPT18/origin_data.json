@@ -1,0 +1,9 @@
+{
+  "name": "T7",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdgceh,cfdahi,agfbie,abfeig,dfhaci,dbcghe,fcadih,fgibae,cbhgde",
+  "faces": "bda:0,dga:1,gca:0,cea:1,eha:0,hba:1,cfb:0,fdb:1,hib:0,icb:1,gfc:1,iec:0,fed:0,eid:1,igd:0,fhe:1,ghf:0,ihg:1",
+  "re-embedding": "abdcgiehf",
+  "pair": "T7"
+}

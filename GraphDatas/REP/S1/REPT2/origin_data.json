@@ -1,0 +1,9 @@
+{
+  "name": "T1",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdcgef,cedafg,adfebg,abegfc,dbcfag,ecdgba,fdeacb",
+  "faces": "bda:1,dca:1,cga:0,gea:1,efa:0,fba:0,ceb:0,edb:0,fgb:0,gcb:1,dfc:0,fec:0,egd:0,gfd:1",
+  "re-embedding": "abcdgef",
+  "pair": "T1"
+}
