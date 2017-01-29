@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT1",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcdef,afDEghc,abheGd,acGFBe,adBGchf,aehgDb,bECDfh,bgfec",
+  "faces": "bca:1,cda:0,dea:0,efa:1,fba:0,fdb:0,deb:1,egb:1,ghb:0,hcb:1,hec:0,egc:0,gdc:1,gfd:1,hfe:1,hgf:0",
+  "re-embedding": "aefdbcgh",
+  "pair": "N2SIT1"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "T20",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdce,cfdaeh,adgfbhie,abfeihgc,dfghbaci,dbcge,fcdhe,begdic,chde",
+  "faces": "bda:1,dca:0,cea:1,eba:0,cfb:1,fdb:0,ehb:1,hcb:0,dgc:0,gfc:0,hic:1,iec:0,fed:0,eid:1,ihd:0,hgd:1,fge:1,ghe:0",
+  "re-embedding": "abecdfghi",
+  "pair": "T20"
+}

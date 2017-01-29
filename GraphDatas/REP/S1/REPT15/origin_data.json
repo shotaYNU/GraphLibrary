@@ -1,0 +1,9 @@
+{
+  "name": "T4",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdceg,cfdaghe,adhgfbe,abfehc,dfgacbh,bcged,fchbae,gcdeb",
+  "faces": "bda:1,dca:0,cea:0,ega:1,gba:0,cfb:0,fdb:0,ghb:1,heb:0,ecb:1,dhc:1,hgc:0,gfc:1,fed:1,ehd:0,fge:0",
+  "re-embedding": "aebdcfgh",
+  "pair": "T4"
+}

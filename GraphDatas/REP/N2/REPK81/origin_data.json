@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT61",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bCDef,fjdECa,dfeBA,bjiGHfcAE,cfaDB,gjbaecdHI,hjfID,ijgDF,djhFG,bfghid",
+  "faces": "bca:0,cda:1,dea:0,efa:1,fba:0,fjb:1,jdb:1,deb:0,ecb:1,dfc:0,fec:0,jid:0,igd:1,ghd:0,hfd:0,gjf:0,hif:1,igf:0,hjg:1,ijh:0",
+  "re-embedding": "abefcdhgij",
+  "pair": "N2SIT61"
+}

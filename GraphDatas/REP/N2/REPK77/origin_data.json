@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT50",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcdef,fjiDEca,abEFd,eacFhgIB,adBCf,gjbaeCDHI,hjfId,ijgdF,bjhFGD,bfghi",
+  "faces": "bca:1,cda:0,dea:1,efa:0,fba:0,fjb:1,jib:1,idb:1,deb:0,ecb:0,efc:1,fdc:0,fhd:0,hgd:1,gid:0,gjf:0,hif:1,igf:1,hjg:1,ijh:0",
+  "re-embedding": "ebadcfhgij",
+  "pair": "N2SIT50"
+}

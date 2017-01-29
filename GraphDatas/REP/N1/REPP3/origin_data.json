@@ -1,0 +1,9 @@
+{
+  "name": "P1",
+  "orientable": false,
+  "genus": 1,
+  "rotation": "BedcF,cdfAE,adbEF,aefbc,aBCfd,deCAb",
+  "faces": "bea:0,eda:0,dca:0,cfa:0,fba:0,cdb:0,dfb:0,ecb:0,efc:0,efd:0",
+  "re-embedding": "abfecd",
+  "pair": "P1"
+}

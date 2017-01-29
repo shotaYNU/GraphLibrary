@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT129",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bCDe,jmdKCaelfghi,dmekBA,bmcAEK,cmjlbaDk,blHIJg,hbfJ,bgJLFi,jbhF,embiFGHl,eDBc,jHfbe,jecdb",
+  "faces": "bca:1,cda:0,dea:1,eba:0,jmb:1,mdb:0,dkb:1,kcb:0,elb:1,lfb:0,fgb:1,ghb:0,hib:1,ijb:0,dmc:1,mec:0,ekc:1,ekd:0,mje:1,jle:1,lhf:1,hif:0,ijf:1,jgf:0,jhg:1,jlh:0",
+  "re-embedding": "gbfhjcadkeiml",
+  "pair": "N2SIT129"
+}

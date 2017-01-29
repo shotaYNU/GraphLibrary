@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT31",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcdef,afDgehc,abhFd,acFBGhe,adhbgf,aegHCDb,bDHfe,bedGFc",
+  "faces": "bca:1,cda:0,dea:1,efa:0,fba:0,fdb:1,dgb:0,geb:0,ehb:1,hcb:0,hfc:1,fdc:0,ghd:1,hed:0,gfe:1,ghf:0",
+  "re-embedding": "afcbedgh",
+  "pair": "N2SIT31"
+}

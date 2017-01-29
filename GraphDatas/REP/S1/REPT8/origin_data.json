@@ -1,0 +1,9 @@
+{
+  "name": "T12",
+  "orientable": true,
+  "genus": 1,
+  "rotation": "bdce,cfdaehi,adgfbie,abfeigc,dfhbaci,dbcgihe,fcdi,fibe,cbhfgde",
+  "faces": "bda:1,dca:1,cea:1,eba:1,cfb:1,fdb:0,ehb:1,hib:0,icb:1,dgc:1,gfc:0,iec:0,fed:1,eid:1,igd:0,fhe:0,gif:1,ihf:1",
+  "re-embedding": "abcdeighf",
+  "pair": "T12"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT127",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcde,aefghijDkc,abkEJd,acJBKe,adKCjHfb,beHIJg,bfJh,bgJEFi,bhFj,biFGHeCD,bDEc",
+  "faces": "bca:0,cda:1,dea:0,eba:1,efb:0,fgb:1,ghb:0,hib:1,ijb:0,jdb:0,dkb:1,kcb:1,kec:1,ejc:0,jdc:1,ked:1,jhe:0,hfe:1,hif:0,ijf:1,jgf:0,jhg:1",
+  "re-embedding": "abdcehifgjk",
+  "pair": "N2SIT127"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "N2SIT143",
+  "orientable": false,
+  "genus": 2,
+  "rotation": "bcdef,afgdhEc,abEFd,acFhbge,adgHBCf,aeCDHgb,bfHed,bdFGE",
+  "faces": "bca:0,cda:0,dea:1,efa:0,fba:1,fgb:0,gdb:0,dhb:0,heb:0,ecb:1,efc:0,fdc:1,fhd:0,ged:0,ghe:0,hgf:0",
+  "re-embedding": "aecfbdhg",
+  "pair": "N2SIT143"
+}
