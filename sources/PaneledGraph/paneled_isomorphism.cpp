@@ -1,5 +1,4 @@
 #include "paneled_isomorphism.hpp"
-#include "debuger.hpp"
 
 PaneledIsomorphism::PaneledIsomorphism(PaneledGraph* _graph) : Isomorphism(_graph)
 {
@@ -249,20 +248,15 @@ void PaneledIsomorphism::addAdjacents(vector<bool*> _adjacent, vector<long long>
         for (int aindex = 0; aindex < _adjacent.size(); ++aindex)
             for (int a = 0; a < ADJACENT_MAX; ++a)
                 newAdjacent[aindex][a] = _adjacent[aindex][a];
+        for (int pindex = 0; pindex < _panel.size(); ++pindex)
+            newPanel[pindex] = _panel[pindex];
         vector<pair<int, int>> p = Utility::convertToTranspositions(origMap, pairs[i]);
         for (pair<int, int> transposition : p) {
             Utility::allExchangeBool(transposition.first, transposition.second, newAdjacent);
             temp = newAdjacent[transposition.first];
             newAdjacent[transposition.first] = newAdjacent[transposition.second];
             newAdjacent[transposition.second] = temp;
-        }
-        for (int pindex = 0; pindex < _panel.size(); ++pindex) {
-            newPanel[pindex] = 0ULL;
-            for (int k = 0; k < pairs[i].size(); ++k)
-                if ((_panel[pindex] & (1ULL << k)) != 0) {
-                    int index = pairs[i][k];
-                    newPanel[pindex] += (1ULL << index);
-                }
+            Utility::allExchangeLong(transposition.first, transposition.second, newPanel);
         }
         sort(newPanel.begin(), newPanel.end());
         setAdjacentRepresentation(newAdjacent, newAdjacentRepresentation);
