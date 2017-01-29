@@ -12,6 +12,7 @@ public:
     PaneledGraphRepresentation(PaneledGraph* _graph);
     ~PaneledGraphRepresentation();
     void setBestRepresentation();
+    bool getTraversedAll() const { return traversedAll; }
 
 protected:
     void setNewBestRepresentation() { bestRepresentation = new PaneledRepresentation(*(PaneledRepresentation*)newRepresentation); }
