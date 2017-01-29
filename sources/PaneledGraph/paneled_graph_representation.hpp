@@ -15,6 +15,7 @@ public:
 
 protected:
     void setNewBestRepresentation() { bestRepresentation = new PaneledRepresentation(*(PaneledRepresentation*)newRepresentation); }
+    bool traversedAll;
 
 private:
 
