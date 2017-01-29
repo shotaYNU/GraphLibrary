@@ -2,9 +2,17 @@
 #define Isomorphism_hpp
 
 #include "../EmbeddedGraph/embedded_graph.hpp"
+#include <array>
 
 class Isomorphism {
 public:
+    enum Results {
+        FAIL = -1,
+        EQUIVALENT = 0,
+        BETTER = 1,
+    };
+    static const int ADJACENT_MAX = 20;
+
     //Constructors and a destructor.
     Isomorphism(EmbeddedGraph* _graph);
     ~Isomorphism();
@@ -12,15 +20,14 @@ public:
     //Getter methods and setter methods
     void setMappedAdjacents();
     bool isomorphic(const Isomorphism& isomorphism) const;
-    vector<bool*> getAdjacent() const { return adjacent; }
-    vector<vector<bool*>> getMappedAdjacents() const { return mappedAdjacents; }
 
 protected:
-    vector<bool*> adjacent;
-    vector<vector<bool*>> mappedAdjacents;
+    array<int, GraphProperty::MAX_EDGE> bestAdjacentRepresentation;
+    int repCount;
     EmbeddedGraph* graph;
 
-    bool equal(const vector<bool*>& _adj1, const vector<bool*>& _adj2) const;
+    Results compareAdjacent(const array<int, GraphProperty::MAX_EDGE>& _adj1, const array<int, GraphProperty::MAX_EDGE>& _adj2) const;
+    void setAdjacentRepresentation(const vector<bool*>& _adjacent, array<int, GraphProperty::MAX_EDGE>& _newAdjacentRepresentation);
 
 private:
 
