@@ -162,9 +162,10 @@ void PaneledGraph::setPanel(string _panelString)
 
     vector<string> panels = Utility::split(_panelString, ',');
     for (auto panel : panels) {
-        int id1 = int(panel[0]) - 48;
-        int id2 = int(panel[1]) - 48;
-        int id3 = int(panel[2]) - 48;
+        vector<string> ids = Utility::split(panel, ':');
+        int id1 = atoi(ids[0].c_str());
+        int id2 = atoi(ids[1].c_str());
+        int id3 = atoi(ids[2].c_str());
 
         vector<int> face1 = { id1, id2, id3 };
         sort(face1.begin(), face1.end());
@@ -213,8 +214,8 @@ void PaneledGraph::openGraph(string _filepath)
                 int id1 = get<0>(EmbeddedVertex::charToId(f[0][0]));
                 int id2 = get<0>(EmbeddedVertex::charToId(f[0][1]));
                 int id3 = get<0>(EmbeddedVertex::charToId(f[0][2]));
-                panels += to_string(id1);
-                panels += to_string(id2);
+                panels += to_string(id1) + ":";
+                panels += to_string(id2) + ":";
                 panels += to_string(id3);
                 panels += ",";
             }

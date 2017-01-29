@@ -23,10 +23,16 @@ PaneledGraphRepresentation::~PaneledGraphRepresentation()
 
 void PaneledGraphRepresentation::setBestRepresentation()
 {
+    traversedAll = true;
     if (graph->isEmpty()) return;
 
     EmbeddedEdge *ed, *end;
     Representation::Results result;
+
+    int realCount = 0;
+    for (int i = 0; i < graph->getVerticesNum(); ++i)
+        if (!((PaneledGraph*)graph)->isFlat(i))
+            realCount++;
 
     bool beforeInit = true;
     for (int i = 0; i < graph->getVerticesNum(); ++i) {
@@ -35,6 +41,10 @@ void PaneledGraphRepresentation::setBestRepresentation()
         do {
             for (auto clockwise: {true, false}) {
                 newRepresentation->setRepresentation(ed, clockwise);
+                if (((PaneledRepresentation*)newRepresentation)->getVerticesCount() != realCount) {
+                    traversedAll = false;
+                    return;
+                }
                 if (beforeInit) {
                     repsCount = 0;
                     representations[repsCount++] = new Representation(*newRepresentation);
