@@ -19,8 +19,8 @@ void Isomorphism::setMappedAdjacents()
 
     for (int i = 0; i < graph->getVerticesNum(); ++i) {
         ed = end = graph->getVertex(i)->getFirstEdge();
-        adjacent.push_back(new bool[20]);
-        for (int b = 0; b < 20; b++)
+        adjacent.push_back(new bool[ADJACENT_MAX]);
+        for (int b = 0; b < ADJACENT_MAX; b++)
             adjacent.back()[b] = false;
         int deg = graph->getVertexDegree(i);
         degrees.push_back(make_pair(deg, i));
@@ -71,16 +71,19 @@ void Isomorphism::setMappedAdjacents()
         prevPairs = pairs;
     }
 
-    int newAdjacentRepresentation[GraphProperty::MAX_EDGE];
+    array<int, GraphProperty::MAX_EDGE> newAdjacentRepresentation;
     bestAdjacentRepresentation[0] = 10000;
+    vector<bool*> newAdjacent;
+    for (int i = 0; i < adjacent.size(); ++i) {
+        bool* oneAdjacent = new bool[ADJACENT_MAX];
+        for (int a = 0; a < ADJACENT_MAX; ++a)
+            oneAdjacent[a] = false;
+        newAdjacent.push_back(oneAdjacent);
+    }
     for (int i = 0; i < pairs.size(); ++i) {
-        vector<bool*> newAdjacent;
-        for (auto adj : adjacent) {
-            bool* oneAdjacent = new bool[20];
-            for (int a = 0; a < 20; ++a)
-                oneAdjacent[a] = adj[a];
-            newAdjacent.push_back(oneAdjacent);
-        }
+        for (int aindex = 0; aindex < adjacent.size(); ++aindex)
+            for (int a = 0; a < ADJACENT_MAX; ++a)
+                newAdjacent[aindex][a] = adjacent[aindex][a];
         vector<pair<int, int>> p = Utility::convertToTranspositions(origMap, pairs[i]);
         for (pair<int, int> transposition : p) {
             Utility::allExchangeBool(transposition.first, transposition.second, newAdjacent);
@@ -88,7 +91,6 @@ void Isomorphism::setMappedAdjacents()
             newAdjacent[transposition.first] = newAdjacent[transposition.second];
             newAdjacent[transposition.second] = temp;
         }
-
         setAdjacentRepresentation(newAdjacent, newAdjacentRepresentation);
         if (compareAdjacent(bestAdjacentRepresentation, newAdjacentRepresentation) == Results::BETTER)
             for (int r = 0; r < repCount; ++r)
@@ -106,7 +108,7 @@ bool Isomorphism::isomorphic(const Isomorphism& isomorphism) const
     return false;
 }
 
-Isomorphism::Results Isomorphism::compareAdjacent(const int(&_adj1)[GraphProperty::MAX_EDGE], const int(&_adj2)[GraphProperty::MAX_EDGE]) const
+Isomorphism::Results Isomorphism::compareAdjacent(const array<int, GraphProperty::MAX_EDGE>& _adj1, const array<int, GraphProperty::MAX_EDGE>& _adj2) const
 {
     for (int i = 0; i < repCount; ++i) {
         if (_adj1[i] < _adj2[i])
@@ -118,7 +120,7 @@ Isomorphism::Results Isomorphism::compareAdjacent(const int(&_adj1)[GraphPropert
     return Results::EQUIVALENT;
 }
 
-void Isomorphism::setAdjacentRepresentation(const vector<bool*>& _adjacent, int (&_newAdjacentRepresentation)[GraphProperty::MAX_EDGE])
+void Isomorphism::setAdjacentRepresentation(const vector<bool*>& _adjacent, array<int, GraphProperty::MAX_EDGE>& _newAdjacentRepresentation)
 {
     repCount = 0;
     for (auto adj : _adjacent) {
