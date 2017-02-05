@@ -102,10 +102,37 @@ void PanelStrctureGeneration::addIfNotExist(const vector<int>& _selectIndxies, i
     if (!isFullPanel(faces)) {
         PaneledGraphRepresentation graphRep(graph);
         graphRep.setBestRepresentation();
-        int equivalentNum = contains(graphRep);
-        if (equivalentNum == -1) {
-            graphRepresentations.push_back(graphRep);
-//            graph->saveGraph("");
+        bool save = false;
+        PaneledIsomorphism iso(graph);
+        if (graphRep.getTraversedAll()) {
+            if (contains(graphRep) == -1) {
+                iso.setMappedAdjacents();
+                int sameIndex = containsIsomorphism(iso);
+                if (sameIndex == -1) {
+                    graphRepresentations.push_back(graphRep);
+                    isomorphisms.push_back(iso);
+                    embeddings.push_back(_embeddingNum);
+                    save = true;
+                } else if (embeddings[sameIndex] != _embeddingNum) {
+                    cout << "!!!!! ERROR !!!!!" << endl; //Detect error case.
+                }
+            }
+        } else {
+            iso.setMappedAdjacents();
+            int sameIndex = containsIsomorphism(iso);
+            if (sameIndex == -1) {
+                isomorphisms.push_back(iso);
+                embeddings.push_back(_embeddingNum);
+                save = true;
+            } else if (embeddings[sameIndex] != _embeddingNum) {
+                cout << "!!!!! ERROR !!!!!" << endl; //Detect error case.
+            }
+        }
+        if (save) {
+            vector<pair<string, picojson::value>> appendDatas{
+                make_pair("embeddingNum", picojson::value((double)_embeddingNum))
+            };
+            fileSaveDispatcher.save(graph->toSaveGraph(appendDatas));
         }
     }
 }
@@ -123,6 +150,15 @@ int PanelStrctureGeneration::contains(const PaneledGraphRepresentation& _newGrap
 {
     for (int i = 0; i < graphRepresentations.size(); ++i)
         if (graphRepresentations[i].compareRepresentation(_newGraphRepresentation) == Representation::Results::AUTOMORPHISM)
+            return i;
+
+    return -1;
+}
+
+int PanelStrctureGeneration::containsIsomorphism(const PaneledIsomorphism& _newIsomorphism)
+{
+    for (int i = 0; i < isomorphisms.size(); ++i)
+        if (isomorphisms[i].isomorphic(_newIsomorphism))
             return i;
 
     return -1;
