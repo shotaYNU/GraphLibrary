@@ -47,7 +47,7 @@ void PanelStrctureGeneration::generate(PaneledGraph* _graph)
     for (int e = 0; e < embeddingSet->getInequivalentEmbeddingsNum(); ++e) {
         newFaces = originFaces;
         for (auto transposition : embeddingSet->getInequivalentEmbeddings(e))
-            Utility::allExchange(transposition.first, transposition.second, newFaces);
+            Utility::allExchangeLong(transposition.first, transposition.second, newFaces);
         vector<bool> oneSet;
         for (int i = 0; i < faces.size(); ++i)
             oneSet.push_back(find(newFaces.begin(), newFaces.end(), originFaces[i]) != newFaces.end());
