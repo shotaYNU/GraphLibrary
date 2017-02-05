@@ -16,6 +16,7 @@ void PanelStrctureGeneration::generate(PaneledGraph* _graph)
     embeddingSet = new EmbeddingSet();
     embeddingMatrix.clear();
     faces.clear();
+    existPattern.clear();
 
     vector<long long> originFaces;
     vector<long long> newFaces;
@@ -86,6 +87,7 @@ void PanelStrctureGeneration::settingRecursive(const vector<int>& _selectedIndex
         vector<int> selected = get<0>(results);
         vector<int> rest = get<1>(results);
         int embeddingNum = get<2>(results);
+        if (embeddingNum == -1) return;
 
         addIfNotExist(selected, embeddingNum);
         settingRecursive(selected, rest);
@@ -173,7 +175,7 @@ vector<bool> PanelStrctureGeneration::getProductSet(const vector<bool>& _set1, c
     return result;
 }
 
-tuple<vector<int>, vector<int>, int> PanelStrctureGeneration::select(const vector<int>& _selectIndexies) const
+tuple<vector<int>, vector<int>, int> PanelStrctureGeneration::select(const vector<int>& _selectIndexies)
 {
     vector<int> facesList;
     vector<int> othersList;
@@ -183,6 +185,11 @@ tuple<vector<int>, vector<int>, int> PanelStrctureGeneration::select(const vecto
         origin.push_back(true);
     for (auto index : _selectIndexies)
         origin = getProductSet(origin, embeddingMatrix[index]);
+
+    if (find(existPattern.begin(), existPattern.end(), _selectIndexies) == existPattern.end())
+        existPattern.push_back(_selectIndexies);
+    else
+        return make_tuple(vector<int>(), vector<int>(), -1);
 
     for (int i = 0; i < embeddingMatrix.size(); ++i) {
         vector<bool> product = getProductSet(origin, embeddingMatrix[i]);

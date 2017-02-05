@@ -27,13 +27,14 @@ private:
     EmbeddingSet* embeddingSet;
     vector<PaneledFace*> faces;
     FileSaveDispatcher fileSaveDispatcher;
+    vector<vector<int>> existPattern;
 
     void addIfNotExist(const vector<int>& _selectIndxies, int _embeddingNum);
     bool isFullPanel(const vector<PaneledFace*>& _faces);
     int contains(const PaneledGraphRepresentation& _newGraphRepresentation);
     int containsIsomorphism(const PaneledIsomorphism& _newIsomorphism);
     vector<bool> getProductSet(const vector<bool>& _set1, const vector<bool>& _set2) const;
-    tuple<vector<int>, vector<int>, int> select(const vector<int>& _selectIndexies) const;
+    tuple<vector<int>, vector<int>, int> select(const vector<int>& _selectIndexies);
     void settingRecursive(const vector<int>& _selectedIndexies, const vector<int>& _restIndexies);
 
 };
