@@ -223,4 +223,24 @@ void PaneledGraph::openGraph(string _filepath)
         panels.pop_back();
         setPanel(panels);
     }
+    if (all.find("embeddings") != all.end()) {
+        picojson::array embs = all["embeddings"].get<picojson::array>();
+        for (auto emb : embs) {
+            vector<pair<int, int>> oneEmb;
+            vector<string> embStrings = Utility::split(emb.get<string>(), ',');
+            for (auto oneStr : embStrings)
+                oneEmb.push_back(make_pair(get<0>(EmbeddedVertex::charToId(oneStr[0])), get<0>(EmbeddedVertex::charToId(oneStr[1]))));
+            embeddings.push_back(oneEmb);
+        }
+    }
+    if (all.find("isomorphismsForIsomorphism") != all.end()) {
+        picojson::array array = all["isomorphismsForIsomorphism"].get<picojson::array>();
+        for (auto a : array)
+            isomorphismsForIsomorphism.push_back(a.get<string>());
+    }
+    if (all.find("panelsForIsomorphism") != all.end()) {
+        picojson::array array = all["panelsForIsomorphism"].get<picojson::array>();
+        for (auto a : array)
+            panelsForIsomorphism.push_back(a.get<string>());
+    }
 }
