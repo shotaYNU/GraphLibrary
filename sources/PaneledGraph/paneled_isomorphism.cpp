@@ -161,7 +161,17 @@ void PaneledIsomorphism::setMappedAdjacents()
             if (!fail)
                 pan.push_back(p);
         }
-        addAdjacents(adj, pan);
+        vector<long long> modifiedPan;
+        for (auto p : pan) {
+            modifiedPan.push_back(0ULL);
+            for (int i = 0; i < ADJACENT_MAX; ++i) {
+                if ((p & (1ULL << i)) != 0) {
+                    int index = (int)(find(ad.begin(), ad.end(), i) - ad.begin());
+                    modifiedPan.back() += (1ULL << index);
+                }
+            }
+        }
+        addAdjacents(adj, modifiedPan);
     }
 //    End: Set disjoint mapped adjacent list
 }
