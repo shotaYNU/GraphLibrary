@@ -5,6 +5,7 @@
 #include "paneled_graph.hpp"
 #include <queue>
 #include <array>
+#include "file_save_dispatcher.hpp"
 
 class PaneledIsomorphism: public Isomorphism {
 public:
@@ -16,6 +17,9 @@ public:
     void setMappedAdjacents();
     bool isomorphic(const Isomorphism& isomorphism) const;
     void addAdjacents(vector<bool*> _adjacent, vector<long long> _panel);
+    vector<pair<string, string>> toStringDatas();
+    void setPaneledIsomorphismDatas(const vector<pair<string, string>>& _datas);
+    static void saveIsomorphisms(const vector<PaneledGraph*>& _graphs, FileSaveDispatcher& _fileSaveDispatcher);
 
 protected:
 
