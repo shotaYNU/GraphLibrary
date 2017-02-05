@@ -331,3 +331,76 @@ Isomorphism::Results PaneledIsomorphism::comparePanel(const vector<long long>& _
 
     return Results::EQUIVALENT;
 }
+
+vector<pair<string, string>> PaneledIsomorphism::toStringDatas()
+{
+    vector<pair<string, string>> pairs;
+    for (int i = 0; i < bestAdjacentRepresentationList.size(); ++i) {
+        string repString = "";
+        for (int o = 0; o < repCounts[i]; ++o)
+            repString += to_string(bestAdjacentRepresentationList[i][o]);
+        string panelString = "";
+        for (auto onePanel: panelsList[i]) {
+            panelString += to_string(onePanel);
+            panelString += ",";
+        }
+        panelString.pop_back();
+        pairs.push_back(make_pair(repString, panelString));
+    }
+
+    return pairs;
+}
+
+void PaneledIsomorphism::setPaneledIsomorphismDatas(const vector<pair<string, string>>& _datas)
+{
+    for (int i = 0; i < _datas.size(); ++i) {
+        string repString = _datas[i].first;
+        string panelString = _datas[i].second;
+        array<int, GraphProperty::MAX_EDGE> oneRep;
+        for (int o = 0; o < repString.size(); ++o)
+            oneRep[o] = repString[o] - '0';
+
+        vector<string> panelStrings = Utility::split(panelString, ',');
+        vector<long long> onePanel;
+        for (int o = 0; o < panelStrings.size(); ++o)
+            onePanel.push_back(atoll(panelStrings[o].c_str()));
+
+        bestAdjacentRepresentationList.push_back(oneRep);
+        panelsList.push_back(onePanel);
+        repCounts.push_back((int)repString.size());
+    }
+}
+
+void PaneledIsomorphism::saveIsomorphisms(const vector<PaneledGraph*>& _graphs, FileSaveDispatcher& _fileSaveDispatcher)
+{
+    vector<PaneledIsomorphism> isomorphisms;
+    for (auto graph : _graphs) {
+        PaneledIsomorphism isomorphism(graph);
+        isomorphism.setMappedAdjacents();
+        picojson::array embStrings;
+        for (int e = 0; e < graph->embeddings.size(); ++e) {
+            string embeddingString = "";
+            for (auto transposition : graph->embeddings[e]) {
+                embeddingString += get<0>(EmbeddedVertex::idToChar(transposition.first, false));
+                embeddingString += get<0>(EmbeddedVertex::idToChar(transposition.second, false));
+                embeddingString += ",";
+            }
+            embeddingString.pop_back();
+            embStrings.push_back(picojson::value(embeddingString));
+        }
+        picojson::array isos;
+        picojson::array panels;
+        vector<pair<string, string>> strings = isomorphism.toStringDatas();
+        for (auto str : strings) {
+            isos.push_back(picojson::value(str.first));
+            panels.push_back(picojson::value(str.second));
+        }
+        vector<pair<string, picojson::value>> appendDatas{
+            make_pair("isomorphismsForIsomorphism", picojson::value(isos)),
+            make_pair("panelsForIsomorphism", picojson::value(panels)),
+            make_pair("embeddingNum", picojson::value((double)graph->embeddings.size())),
+            make_pair("embeddings", picojson::value(embStrings))
+        };
+        _fileSaveDispatcher.save(graph->toSaveGraph(appendDatas));
+    }
+}
