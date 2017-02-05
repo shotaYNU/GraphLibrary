@@ -72,7 +72,7 @@ void PanelStrctureGeneration::generate(PaneledGraph* _graph)
         if (getProductSet(embeddingMatrix[i], allTrue) == allTrue) defaultSet.push_back(i);
         else rest.push_back(i);
     }
-    addIfNotExist(defaultSet, embeddingSet->getInequivalentEmbeddingsNum());
+    addIfNotExist(defaultSet, embeddingSet->getInequivalentEmbeddingsNum(), allTrue);
     settingRecursive(defaultSet, rest);
 }
 
@@ -83,19 +83,20 @@ void PanelStrctureGeneration::settingRecursive(const vector<int>& _selectedIndex
         vector<int> indexies = _selectedIndexies;
         indexies.push_back(index);
 
-        tuple<vector<int>, vector<int>, int> results = select(indexies);
+        tuple<vector<int>, vector<int>, int, vector<bool>> results = select(indexies);
         vector<int> selected = get<0>(results);
         vector<int> rest = get<1>(results);
         int embeddingNum = get<2>(results);
         if (embeddingNum == -1) return;
+        vector<bool> emb = get<3>(results);
 
-        addIfNotExist(selected, embeddingNum);
+        addIfNotExist(selected, embeddingNum, emb);
         settingRecursive(selected, rest);
     }
     return;
 }
 
-void PanelStrctureGeneration::addIfNotExist(const vector<int>& _selectIndxies, int _embeddingNum)
+void PanelStrctureGeneration::addIfNotExist(const vector<int>& _selectIndxies, int _embeddingNum, const vector<bool>& _emb)
 {
     for (auto face : faces)
         face->resetPanel();
@@ -105,36 +106,43 @@ void PanelStrctureGeneration::addIfNotExist(const vector<int>& _selectIndxies, i
         PaneledGraphRepresentation graphRep(graph);
         graphRep.setBestRepresentation();
         bool save = false;
+        bool disjointCase = false;
         PaneledIsomorphism iso(graph);
         if (graphRep.getTraversedAll()) {
             if (contains(graphRep) == -1) {
-                iso.setMappedAdjacents();
-                int sameIndex = containsIsomorphism(iso);
-                if (sameIndex == -1) {
-                    graphRepresentations.push_back(graphRep);
-                    isomorphisms.push_back(iso);
-                    embeddings.push_back(_embeddingNum);
-                    save = true;
-                } else if (embeddings[sameIndex] != _embeddingNum) {
-                    cout << "!!!!! ERROR !!!!!" << endl; //Detect error case.
-                }
+                graphRepresentations.push_back(graphRep);
+                save = true;
             }
         } else {
-            iso.setMappedAdjacents();
-            int sameIndex = containsIsomorphism(iso);
-            if (sameIndex == -1) {
-                isomorphisms.push_back(iso);
-                embeddings.push_back(_embeddingNum);
+            if (contains(graphRep) == -1) {
+                graphRepresentations.push_back(graphRep);
                 save = true;
-            } else if (embeddings[sameIndex] != _embeddingNum) {
-                cout << "!!!!! ERROR !!!!!" << endl; //Detect error case.
+                disjointCase = true;
             }
         }
         if (save) {
+            picojson::array embStrings;
+            for (int e = 0; e < _emb.size(); ++e) {
+                if (!_emb[e]) continue;
+                vector<int> permutation = Utility::convertToPermutation(embeddingSet->getInequivalentEmbeddings(e), graph->getVerticesNum());
+                string embeddingString = "";
+                for (auto transposition : embeddingSet->getInequivalentEmbeddings(e)) {
+                    embeddingString += get<0>(EmbeddedVertex::idToChar(transposition.first, false));
+                    embeddingString += get<0>(EmbeddedVertex::idToChar(transposition.second, false));
+                    embeddingString += ",";
+                }
+                embeddingString.pop_back();
+                embStrings.push_back(picojson::value(embeddingString));
+            }
             vector<pair<string, picojson::value>> appendDatas{
-                make_pair("embeddingNum", picojson::value((double)_embeddingNum))
+                make_pair("embeddingNum", picojson::value((double)_embeddingNum)),
+                make_pair("embeddings", picojson::value(embStrings))
             };
-            fileSaveDispatcher.save(graph->toSaveGraph(appendDatas));
+            if (disjointCase) {
+                fileSaveDispatcher2.save(graph->toSaveGraph(appendDatas));
+            } else {
+                fileSaveDispatcher.save(graph->toSaveGraph(appendDatas));
+            }
         }
     }
 }
@@ -175,7 +183,7 @@ vector<bool> PanelStrctureGeneration::getProductSet(const vector<bool>& _set1, c
     return result;
 }
 
-tuple<vector<int>, vector<int>, int> PanelStrctureGeneration::select(const vector<int>& _selectIndexies)
+tuple<vector<int>, vector<int>, int, vector<bool>> PanelStrctureGeneration::select(const vector<int>& _selectIndexies)
 {
     vector<int> facesList;
     vector<int> othersList;
@@ -189,7 +197,7 @@ tuple<vector<int>, vector<int>, int> PanelStrctureGeneration::select(const vecto
     if (find(existPattern.begin(), existPattern.end(), _selectIndexies) == existPattern.end())
         existPattern.push_back(_selectIndexies);
     else
-        return make_tuple(vector<int>(), vector<int>(), -1);
+        return make_tuple(vector<int>(), vector<int>(), -1, vector<bool>());
 
     for (int i = 0; i < embeddingMatrix.size(); ++i) {
         vector<bool> product = getProductSet(origin, embeddingMatrix[i]);
@@ -203,5 +211,128 @@ tuple<vector<int>, vector<int>, int> PanelStrctureGeneration::select(const vecto
     for (auto bl : origin)
         if (bl) embeddingNum++;
 
-    return make_tuple(facesList, othersList, embeddingNum);
+    return make_tuple(facesList, othersList, embeddingNum, origin);
+}
+
+vector<pair<PaneledGraphRepresentation, int>> PanelStrctureGeneration::getAllInformations(PaneledGraph& _graph)
+{
+    vector<PaneledFace*> faces;
+    vector<long long> originFaces;
+    vector<long long> newFaces;
+    PaneledFace* face;
+    EmbeddedEdge *ed, *end;
+    vector<int> selectFaces;
+
+    for (int i = 0; i < _graph.getVerticesNum(); ++i) {
+        ed = end = _graph.getVertex(i)->getFirstEdge();
+        do {
+            face = (PaneledFace*)ed->getNextFace();
+            if (find(faces.begin(), faces.end(), face) == faces.end())
+                faces.push_back(face);
+            ed = ed->getNext();
+        } while(ed != end);
+    }
+
+    for (int f = 0; f < faces.size(); ++f) {
+        if (((PaneledFace*)faces[f])->getPanel())
+            selectFaces.push_back(f);
+        originFaces.push_back(0ULL);
+        for (auto vertex : faces[f]->getFace())
+            originFaces.back() += (1ULL << vertex);
+    }
+
+    vector<pair<PaneledGraphRepresentation, int>> representations;
+    for (int e = 0; e < _graph.embeddings.size(); ++e) {
+        newFaces = originFaces;
+        for (auto transposition : _graph.embeddings[e])
+            Utility::allExchangeLong(transposition.first, transposition.second, newFaces);
+        for (auto face : faces)
+            face->resetPanel();
+        for (auto index : selectFaces) {
+            int select = (int)(find(newFaces.begin(), newFaces.end(), originFaces[index]) - newFaces.begin());
+            faces[select]->setPanel();
+        }
+        PaneledGraphRepresentation rep(&_graph);
+        rep.setBestRepresentation();
+        int existIndex = -1;
+        for (int t = 0; t < representations.size(); ++t)
+            if (rep.compareRepresentation(representations[t].first) == Representation::Results::AUTOMORPHISM) {
+                existIndex = t;
+                break;
+            }
+        if (existIndex == -1) {
+            representations.push_back(make_pair(rep, 1));
+        } else
+            representations[existIndex].second++;
+    }
+
+    //Reset panels
+    for (auto face : faces)
+        face->resetPanel();
+    for (auto index : selectFaces)
+        faces[index]->setPanel();
+
+    return representations;
+}
+
+void PanelStrctureGeneration::omitDuplicates(const vector<PaneledGraph*>& _graphs, FileSaveDispatcher& _fileSaveDispatcher)
+{
+    vector<PaneledIsomorphism> isomorphisms;
+    vector<vector<pair<PaneledGraphRepresentation, int>>> informations;
+    vector<int> indexies;
+    int count = 0;
+    for (auto graph : _graphs) {
+        PaneledIsomorphism isomorphism(graph);
+        vector<pair<string, string>> datas;
+        for (int c = 0; c < graph->isomorphismsForIsomorphism.size(); ++c)
+            datas.push_back(make_pair(graph->isomorphismsForIsomorphism[c], graph->panelsForIsomorphism[c]));
+        isomorphism.setPaneledIsomorphismDatas(datas);
+        isomorphisms.push_back(isomorphism);
+        informations.push_back(PanelStrctureGeneration::getAllInformations(*graph));
+        indexies.push_back(count);
+        cout << ++count << endl;
+    }
+
+    vector<PaneledIsomorphism> existIsomorphisms;
+    vector<vector<pair<PaneledGraphRepresentation, int>>> existInformations;
+    vector<int> existIndexies;
+    for (int i = 0; i < isomorphisms.size(); ++i) {
+        int existIndex = -1;
+        for (int t = 0; t < existIsomorphisms.size(); ++t)
+            if (isomorphisms[i].isomorphic(existIsomorphisms[t])) {
+                existIndex = t;
+                break;
+            }
+        if (existIndex == -1) {
+            existIsomorphisms.push_back(isomorphisms[i]);
+            existInformations.push_back(informations[i]);
+            existIndexies.push_back(i);
+        } else {
+            for (auto info : informations[i]) {
+                int existIndex2 = -1;
+                for (int t = 0; t < existInformations[existIndex].size(); ++t)
+                    if (info.first.compareRepresentation(existInformations[existIndex][t].first) == Representation::Results::AUTOMORPHISM) {
+                        existIndex2 = t;
+                        break;
+                    }
+                if (existIndex2 == -1) {
+                    existInformations[existIndex].push_back(info);
+                    cout << "---  Congruent case  ---: " << i << " to " << existIndex << " of " << existIndexies[existIndex] << endl;
+                }
+            }
+            cout << "---  case  ---: " << i << " to " << existIndex << " of " << existIndexies[existIndex] << endl;
+        }
+    }
+
+    for (int i = 0; i < existIsomorphisms.size(); ++i) {
+        int embeddingNum = 0;
+        for (auto info : existInformations[i])
+            embeddingNum += info.second;
+        vector<pair<string, picojson::value>> appendDatas{
+            make_pair("embeddingNum", picojson::value((double)embeddingNum))
+        };
+        _fileSaveDispatcher.save(_graphs[existIndexies[i]]->toSaveGraph(appendDatas));
+    }
+
+    cout << "Remain: " << existIsomorphisms.size() << endl;
 }
