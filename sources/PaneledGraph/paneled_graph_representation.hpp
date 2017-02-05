@@ -13,10 +13,12 @@ public:
     ~PaneledGraphRepresentation();
     void setBestRepresentation();
     bool getTraversedAll() const { return traversedAll; }
+    Representation::Results compareRepresentation(const GraphRepresentation& _graph_rep) const;
 
 protected:
     void setNewBestRepresentation() { bestRepresentation = new PaneledRepresentation(*(PaneledRepresentation*)newRepresentation); }
     bool traversedAll;
+    vector<PaneledRepresentation*> multipleBestRepresentations;
 
 private:
 
