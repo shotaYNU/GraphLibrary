@@ -13,14 +13,14 @@ public:
     ~PaneledRepresentation();
 
     void setRepresentation(EmbeddedEdge* _ed, bool _clockwise);
-    int getVerticesCount() const { return verticesCount; }
+    vector<int> getTraversedVertices() const { return traversedVertices; }
 
     //A method to compare representation.
     Representation::Results compareRepresentation(const Representation& _rep) const;
 
 protected:
     int representationPanel[GraphProperty::MAX_EDGE];
-    int verticesCount;
+    vector<int> traversedVertices;
 
 private:
 

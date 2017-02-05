@@ -19,6 +19,9 @@ public:
     void openGraph(string _filepath);
     string toSaveGraph();
     string toSaveGraph(vector<pair<string, picojson::value>> _withData);
+    vector<vector<pair<int, int>>> embeddings;
+    vector<string> panelsForIsomorphism;
+    vector<string> isomorphismsForIsomorphism;
 
 
 protected:
