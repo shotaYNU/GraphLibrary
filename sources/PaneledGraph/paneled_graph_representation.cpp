@@ -95,6 +95,7 @@ Representation::Results PaneledGraphRepresentation::compareRepresentation(const 
             }
         }
     } else {
+        cerr << "detected three or more separated graphs in represenatation!" << endl;
         exit(1);
     }
 
