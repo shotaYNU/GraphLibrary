@@ -301,6 +301,7 @@ bool PaneledIsomorphism::isomorphic(const Isomorphism& _isomorphism) const
             isomorphicOne(bestAdjacentRepresentationList[1], panelsList[1], repCounts[1], isomorphism.bestAdjacentRepresentationList[0], isomorphism.panelsList[0], isomorphism.repCounts[0]))
             return true;
     } else {
+        cerr << "detected three or more separated graphs in isomorphic!" << endl;
         exit(1);
     }
 
